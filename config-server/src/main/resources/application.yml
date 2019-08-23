@@ -1,0 +1,34 @@
+logging:
+  level:
+    com.config.server: TRACE
+
+
+server:
+  port: 8002
+spring:
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT prop.key, prop.value FROM properties prop WHERE application=? AND profile=? AND label=?
+          order: 1
+  datasource:
+    url: jdbc:mysql://localhost:3306/config?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 
+  profiles:
+    active:
+    - jdbc
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update 
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
+    registryFetchIntervalSeconds: 1
+  instance:
+    leaseRenewalIntervalInSeconds: 1

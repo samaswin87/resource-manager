@@ -1,2 +1,36 @@
-/target/
+HELP.md
+target/
+admin-application/.mvn/wrapper/**
+proxy-server/.mvn/wrapper/**
+config-server/.mvn/wrapper/**
+discover-server/.mvn/wrapper/**
+batch-server/.mvn/wrapper/**
+auth-server/.mvn/wrapper/**
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
 .project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
