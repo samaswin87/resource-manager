@@ -40,15 +40,14 @@ public class CompanyController {
 	public ResponseEntity<Void> create(@RequestBody Company company, UriComponentsBuilder ucBuilder) {
 		companyService.create(company);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/employees/{id}").buildAndExpand(company.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/companies/{id}").buildAndExpand(company.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/", headers = "Accept=application/json")
 	public List<Company> getAll() {
-		List<Company> employees = companyService.get();
-		return employees;
-
+		List<Company> companies = companyService.get();
+		return companies;
 	}
 
 	@PutMapping(value = "{id}/edit", headers = "Accept=application/json")

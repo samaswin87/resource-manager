@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.company.api.repository.CompanyRepo;
 import com.resource.common.model.Company;
-import com.resource.common.model.Employee;
 
 @Service
 @Transactional

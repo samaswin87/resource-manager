@@ -1,0 +1,63 @@
+server.port: 8080
+
+spring:
+  application.name: resource-ui
+  cloud.config:
+    discovery.enabled: false
+    fail-fast: false
+  resources:
+    static-locations: classpath:/META-INF/resources/**,classpath:/resources/**
+
+eureka.client:
+  registerWithEureka: false
+  fetchRegistry: false
+
+ribbon:
+  serverListRefreshInterval: 1000
+  ConnectTimeout: 6000
+  ReadTimeout: 3000
+  SocketTimeout: 6000
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    company-service:
+      path: /companies/**
+      serviceId: company-service
+      sensitiveHeaders:
+    employee-service:
+      path: /employees/**
+      serviceId: employee-service
+      sensitiveHeaders:
+
+# company-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
+# employee-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
+
+# Database
+db:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/resource-manager
+  username: root
+  password: 
+
+# Hibernate
+hibernate:
+  dialect: org.hibernate.dialect.MySQL5Dialect
+  show_sql: true
+  hbm2ddl:
+    auto: update
+  enable_lazy_load_no_trans: true
+entitymanager:
+  packagesToScan: com.resource.manager, com.resource.common
+
+
+# logging level
+logging:
+  level:
+    org.springframework: DEBUG
+    com.resource.manager: DEBUG
+  file: app.log
+  pattern:
+    console:%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+    file:%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+    

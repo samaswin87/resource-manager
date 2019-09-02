@@ -36,6 +36,9 @@ public class HibernateConfiguration {
 
 	@Value("${hibernate.hbm2ddl.auto}")
 	private String HIBERNATE_HBM2DDL_AUTO;
+	
+	@Value("${hibernate.enable_lazy_load_no_trans}")
+	private String ENABLE_LAZY_LOAD_NO_TRANS;
 
 	@Value("${entitymanager.packagesToScan}")
 	private String[] ENTITYMANAGER_PACKAGES_TO_SCAN;
@@ -49,6 +52,7 @@ public class HibernateConfiguration {
 		hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
 		hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
 		hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
+		hibernateProperties.put("enable_lazy_load_no_trans", ENABLE_LAZY_LOAD_NO_TRANS);
 		sessionFactory.setHibernateProperties(hibernateProperties);
 		return sessionFactory;
 	}

@@ -22,5 +22,7 @@
   	<module>company-service</module>
   	<module>employee-service</module>
   	<module>timesheet-service</module>
+  	<module>resource-common</module>
+  	<module>resource-web</module>
   </modules>
 </project>

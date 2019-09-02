@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.resource.common.model.Employee;
 import com.employee.api.service.EmployeeService;
+import com.resource.common.model.Employee;
 
 @RestController
-@RequestMapping(value = { "/employees" })
 public class EmployeeController {
 
 	@Autowired
