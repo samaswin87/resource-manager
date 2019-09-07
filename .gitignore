@@ -1,4 +1,5 @@
 HELP.md
+.DS_Store
 target/
 admin-application/.mvn/wrapper/**
 proxy-server/.mvn/wrapper/**
