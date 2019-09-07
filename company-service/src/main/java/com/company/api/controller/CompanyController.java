@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.company.api.service.CompanyService;
+import com.company.api.service.ICompanyService;
 import com.resource.common.model.Company;
 
 @RestController
@@ -25,7 +25,7 @@ import com.resource.common.model.Company;
 public class CompanyController {
 
 	@Autowired
-	CompanyService companyService;
+	ICompanyService companyService;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Company> get(@PathVariable("id") int id) {

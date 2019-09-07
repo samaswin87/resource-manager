@@ -1,16 +1,31 @@
 server.port: 8080
 
 spring:
-  application.name: resource-ui
-  cloud.config:
-    discovery.enabled: false
+  application:
+    name: resource-web
+  cloud:
+    config:
+      discovery:
+        enabled: false
     fail-fast: false
   resources:
     static-locations: classpath:/META-INF/resources/**,classpath:/resources/**
 
-eureka.client:
-  registerWithEureka: false
-  fetchRegistry: false
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    timeout:
+      seconds: 900
+
+eureka:
+  instance:
+    appname: resource-web
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
 
 ribbon:
   serverListRefreshInterval: 1000
@@ -31,7 +46,7 @@ zuul:
       sensitiveHeaders:
 
 # company-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
-# employee-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
+employee-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
 
 # Database
 db:
@@ -54,8 +69,8 @@ entitymanager:
 # logging level
 logging:
   level:
-    org.springframework: DEBUG
     com.resource.manager: DEBUG
+    org.springframework.security: DEBUG
   file: app.log
   pattern:
     console:%d{yyyy-MM-dd HH:mm:ss} - %msg%n

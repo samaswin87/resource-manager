@@ -14,13 +14,14 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import com.resource.common.config.Roles;
 import com.resource.manager.service.WebUserService;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	private static String[] ROLES = {"ADMIN", "EMPLOYEE", "HR-MANAGER", "MANAGER"}; 
+//Session: https://www.baeldung.com/spring-security-session
+// try this : https://github.com/spring-projects/spring-session/blob/2.1.8.RELEASE/samples/boot/findbyusername/src/main/java/sample/session/SessionDetailsFilter.java
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter { 
 	
 	@Autowired
 	private WebUserService service;
@@ -43,14 +44,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/", "/resources/**").permitAll()
 			.antMatchers("/", "/resources/static/**").permitAll()
-			.antMatchers("/home.html").hasAnyAuthority(ROLES)
-			.antMatchers("/login.html").permitAll().anyRequest()
+			.antMatchers("/home").hasAnyAuthority(Roles.getRoles())
+			.antMatchers("/companies/**").hasAnyAuthority(Roles.getRoles())
+			.antMatchers("/employees/**").hasAnyAuthority(Roles.getRoles())
+			.antMatchers("/error").permitAll()
+			.antMatchers("/login").permitAll().anyRequest()
 			.authenticated().and().formLogin()
-			.loginPage("/login.html")
+			.loginPage("/login").permitAll()
 			.loginProcessingUrl("/perform_login")
-			.defaultSuccessUrl("/home.html", true)
+			.defaultSuccessUrl("/home", true)
 			.failureHandler(authenticationFailureHandler()).and().logout()
-			.logoutSuccessUrl("/login.html").logoutUrl("/perform_logout")
+            .invalidateHttpSession(true)
+			.logoutSuccessUrl("/login?logout=true").permitAll().logoutUrl("/logout")
 			.deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler());
 	}
 	

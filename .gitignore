@@ -1,6 +1,4 @@
 HELP.md
-app.log
-app.**
 target/
 admin-application/.mvn/wrapper/**
 proxy-server/.mvn/wrapper/**
