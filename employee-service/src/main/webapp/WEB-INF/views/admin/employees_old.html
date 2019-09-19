@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+<head>
+<!-- END PAGE CONTENT -->
+</head>
+<body>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content" layout:fragment="content">
+    <div th:replace="/fragments/navigation :: navigation"></div>
+
+    <!-- START BREADCRUMB -->
+    <ul class="breadcrumb">
+      <li><a href="#">Employees</a></li>
+      <li class="active">Manage Employees</li>
+    </ul>
+    <!-- END BREADCRUMB -->
+
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+      <h2>Employees List</h2>
+    </div>
+    <!-- END PAGE TITLE -->
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          
+          <!-- START DATATABLE EXPORT -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table id="employees"
+                  class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Employee Code</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Middle Name</th>
+                      <th>Email</th>
+                      <th>Birth Date</th>
+                      <th>Gender</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- END DATATABLE EXPORT -->
+
+        </div>
+      </div>
+
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+  </div>
+</body>
+<script type="text/javascript" layout:fragment="script">
+  
+  $(document).ready(function() {
+            
+    var table = $('#employees').DataTable({
+      "sAjaxSource" : "/employees/list",
+      "sAjaxDataProp" : "",
+      "responsive" : true,
+      "bLengthChange" : false,
+      "bInfo" : false,
+      "iDisplayLength" : 10,
+      "columnDefs" : [{
+        targets : [1, 2, 4],
+        searchable : true
+      }, {
+        targets : '_all',
+        searchable : false,
+        orderable : false
+      }],
+      "aoColumns" : [
+        {
+          "mData" : "employeeCode"
+        },
+        {
+          "mData" : "firstName"
+        },
+        {
+          "mData" : "lastName"
+        },
+        {
+          "mData" : "middleName"
+        },
+        {
+          "mData" : "email"
+        },
+        {
+          "mData" : "birthDate"
+        },
+        {
+          "mData" : "gender"
+        },
+        {
+          mRender : function(data, type, row) {
+            var edit_icon = "<a href=/employees/" + row.id + "/><span class='fa fa-pencil-square-o fa-lg'></span></a>";
+            var delete_icon = "<a href=/employees/" + row.id + "/><span class='fa fa-minus-square-o fa-lg'></span></a>";
+            return edit_icon + "&nbsp;" + delete_icon;
+          }
+        }
+      ]
+	})
+});
+</script>
+</html>

@@ -56,7 +56,7 @@ public class CompanyController {
 		if (company == null) {
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
-		companyService.update(currentEmployee, id);
+		companyService.update(currentEmployee);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 

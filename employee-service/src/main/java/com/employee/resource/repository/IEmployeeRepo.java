@@ -1,8 +1,11 @@
 package com.employee.resource.repository;
 
-import com.resource.common.config.ModelRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
 import com.resource.common.model.Employee;
 
-public interface IEmployeeRepo extends ModelRepository<Employee> {
+@Repository
+public interface IEmployeeRepo extends PagingAndSortingRepository<Employee, Integer>{
 
 }

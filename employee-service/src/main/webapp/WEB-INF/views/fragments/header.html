@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- META SECTION -->
+<title>Resource Manager</title>
+</head>
+<body>
+	<!-- START PAGE SIDEBAR -->
+	<div class="page-sidebar" th:fragment="header">
+		<!-- START X-NAVIGATION -->
+		<ul class="x-navigation">
+			<li class="xn-logo"><a href="index.html">Admin</a> <a href="#"
+				class="x-navigation-control fa-outdent"></a></li>
+			<li class="xn-profile"><a href="#" class="profile-mini"> <img
+					src="assets/images/users/avatar.jpg" alt="John Doe" />
+			</a>
+				<div class="profile">
+					<div class="profile-image">
+						<img src="assets/images/users/profile.png" alt="John Doe" />
+					</div>
+					<div class="profile-data">
+						<div class="profile-data-name">Aswin</div>
+					</div>
+					<div class="profile-controls">
+						<a href="pages-profile.html" class="profile-control-left"><span
+							class="fa fa-info"></span></a> <a href="pages-messages.html"
+							class="profile-control-right"><span class="fa fa-envelope"></span></a>
+					</div>
+				</div></li>
+			<li class="xn-title">Navigation</li>
+			<li><a href="index.html"><span class="fa fa-desktop"></span>
+					<span class="xn-text">Dashboard</span></a></li>
+			<li class="xn-openable"><a href="#"><span class="fa fa-building"></span> <span class="xn-text">Company</span></a>
+				<ul>
+					<li><a href="pages-gallery.html"><span class="fa fa-image"></span> Setting</a></li>
+					<li><a href="pages-address-book.html"><span class="fa fa-users"></span> Location</a></li>
+				</ul>
+			</li>
+			<li class="xn-openable"><a href="#"><span class="fa fa-address-book"></span> <span class="xn-text">Employees</span></a>
+				<ul>
+					<li><a th:href="@{/admin/employees}"><span class="fa fa-users"></span>Manage Employees</a></li>
+				</ul>
+			</li>
+		</ul>
+		<!-- END X-NAVIGATION -->
+	</div>
+	<!-- END PAGE SIDEBAR -->
+</body>
+</html>

@@ -1,16 +1,19 @@
 package com.employee.resource.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.employee.resource.repository.IEmployeeRepo;
 import com.resource.common.model.Employee;
 
-@Service
+@Service("employeeService")
 @Transactional
 public class EmployeeServiceImpl implements IEmployeeService {
 
@@ -19,30 +22,34 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	
 	@Override
-	public void create(Employee employee) {
-		employeeRepo.create(employee);
+	public Employee create(Employee employee) {
+		return employeeRepo.save(employee);
 	}
-
+	
 	@Override
 	public List<Employee> get() {
-		return employeeRepo.get();
+		return (List<Employee>) employeeRepo.findAll();
+	}
+	
+	@Override
+	public Page<Employee> get(Pageable page) {
+		return employeeRepo.findAll(page);
 	}
 
 	@Override
 	public Employee findById(int id) {
-		return employeeRepo.findById(id);
+		Optional<Employee> employee = employeeRepo.findById(id);
+		return employee.orElse(null);
 	}
 
 	@Override
-	public Employee update(Employee employee, int id) {
-		return employeeRepo.update(employee, id);
+	public Employee update(Employee employee) {
+		return employeeRepo.save(employee);
 	}
 
 	@Override
 	public void delete(int id) {
-		employeeRepo.delete(id);
+		employeeRepo.deleteById(id);
 	}
-	
-	
 
 }

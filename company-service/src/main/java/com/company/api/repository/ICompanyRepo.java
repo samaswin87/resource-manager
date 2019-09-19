@@ -1,8 +1,9 @@
 package com.company.api.repository;
 
-import com.resource.common.config.ModelRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.resource.common.model.Company;
 
-public interface ICompanyRepo extends ModelRepository<Company> {
+public interface ICompanyRepo extends JpaRepository<Company, Integer> {
 
 }

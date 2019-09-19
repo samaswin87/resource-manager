@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resource.common.model.User;
-import com.resource.manager.reporsitory.IUserRepo;
+import com.resource.common.reporsitory.IUserRepo;
 
 @Service
 public class UserService implements IUserService {
@@ -14,7 +14,7 @@ public class UserService implements IUserService {
 	
 	@Override
 	public User getActiveUser(String userName) {
-		return userRepo.getActiveUser(userName);
+		return userRepo.findByUsername(userName);
 	}
 
 }

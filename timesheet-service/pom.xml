@@ -26,6 +26,12 @@
 			<groupId>com.resource.common</groupId>
 			<artifactId>resource-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.thymeleaf</groupId>
+					<artifactId>thymeleaf</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

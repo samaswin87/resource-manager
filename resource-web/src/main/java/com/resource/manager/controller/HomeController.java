@@ -20,4 +20,10 @@ public class HomeController {
         return "home.html";
     }
 	
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+    public String notFound(ModelMap model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        return "404.html";
+    }
+
+	
 }

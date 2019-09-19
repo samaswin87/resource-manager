@@ -25,7 +25,6 @@ public class SessionClearer {
 			if(StringUtils.equals(cookies[i].getName(), "resource_name")) {
 				String username = ResourceSalt.decrypt(cookies[i].getName(), "username");
 				if(username != null) {
-					service.clearSessionAttributes(username);
 					service.clearSession(username);
 				}
 			}

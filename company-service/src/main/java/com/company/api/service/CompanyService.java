@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.company.api.repository.ICompanyRepo;
@@ -19,28 +21,33 @@ public class CompanyService implements ICompanyService {
 
 	
 	@Override
-	public void create(Company company) {
-		companyRepo.create(company);
+	public Company create(Company company) {
+		return companyRepo.save(company);
 	}
 
 	@Override
 	public List<Company> get() {
-		return companyRepo.get();
+		return companyRepo.findAll();
 	}
 
 	@Override
 	public Company findById(int id) {
-		return companyRepo.findById(id);
+		return companyRepo.findById(id).orElse(null);
 	}
 
 	@Override
-	public Company update(Company employee, int id) {
-		return companyRepo.update(employee, id);
+	public Company update(Company employee) {
+		return companyRepo.save(employee);
 	}
 
 	@Override
 	public void delete(int id) {
-		companyRepo.delete(id);
+		companyRepo.deleteById(id);
+	}
+
+	@Override
+	public Page<Company> get(Pageable page) {
+		return null;
 	}
 	
 	

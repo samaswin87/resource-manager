@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+<head>
+</head>
+<body>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content" layout:fragment="content">
+    <div th:replace="/fragments/navigation :: navigation"></div>
+
+    <!-- START BREADCRUMB -->
+    <ul class="breadcrumb">
+      <li><a href="#">Employees</a></li>
+      <li class="active">Manage Employees</li>
+    </ul>
+    <!-- END BREADCRUMB -->
+
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+      <h2>Employees List</h2>
+    </div>
+    <!-- END PAGE TITLE -->
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <div class="col-md-8">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <span class="fa fa-search"></span>
+                      </div>
+                      <input type="text" class="form-control"
+                        placeholder="Enter employee name or code" />
+                      <div class="input-group-btn">
+                        <button class="btn btn-primary">Search</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <a th:href="${#employees.add()}" class="btn btn-success btn-block">
+                      <span class="fa fa-plus"></span> Add new employee
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-3" th:each="employee: ${employees}">
+            <!-- CONTACT ITEM -->
+            <div class="panel panel-default">
+              <div class="panel-body profile">
+                <div class="profile-image">
+                  <img src="/assets/images/users/no-image.jpg"
+                    alt="Nadia Ali" />
+                </div>
+                <div class="profile-data">
+                  <div class="profile-data-name" th:text="${employee.firstName}"></div>
+                  <div class="profile-data-title" th:text="${employee.email}"></div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="contact-info">
+                  <p>
+                    <small>Employee Code:</small>
+                    <label th:text="${employee.employeeCode}"></label>
+                  </p>
+                  <p>
+                    <small>Name</small><br />
+                    <a th:href="${#employees.edit(employee.id)}"><label th:text="${employee.fullName()}"></label></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- END CONTACT ITEM -->
+          </div>
+        </div>
+      </div>
+      <div th:replace="/fragments/pagination :: pagination(${employees})"></div>
+           
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+  </div>
+</body>
+</html>

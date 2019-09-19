@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/img/**",
 				"/css/**",
 				"/js/**", 
+				"/assets/**",
                 "/robots.txt",  
                 "/favicon.ico"
 				);
@@ -40,13 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
+		System.out.println(Roles.ADMIN.getRole());
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/", "/resources/**").permitAll()
-			.antMatchers("/", "/resources/static/**").permitAll()
-			.antMatchers("/home").hasAnyAuthority(Roles.getRoles())
-			.antMatchers("/companies/**").hasAnyAuthority(Roles.getRoles())
-			.antMatchers("/employees/**").hasAnyAuthority(Roles.getRoles())
 			.antMatchers("/error").permitAll()
 			.antMatchers("/login").permitAll().anyRequest()
 			.authenticated().and().formLogin()
@@ -57,6 +54,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true)
 			.logoutSuccessUrl("/login?logout=true").permitAll().logoutUrl("/logout")
 			.deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler());
+		
+		http.authorizeRequests()
+			.antMatchers("/home")
+			.hasAnyRole(Roles.getRoles());
+		
+		http.authorizeRequests()
+			.antMatchers("/admin/**")
+			.hasAuthority(Roles.ADMIN.getRole())
+			.and()
+			.exceptionHandling()
+			.accessDeniedHandler(accessDeniedHandler());
 	}
 	
 	@Autowired

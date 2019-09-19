@@ -20,6 +20,7 @@ public class WebUserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		com.resource.common.model.User activeUser = service.getActiveUser(userName);
+		System.out.println(activeUser.getRole().getRoleName());
 		GrantedAuthority authority = new SimpleGrantedAuthority(activeUser.getRole().getRoleName());
 		UserDetails userDetails = (UserDetails)new User(activeUser.getUsername(), activeUser.getPassword(), Arrays.asList(authority));
 		return userDetails;

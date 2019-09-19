@@ -1,0 +1,59 @@
+server.port: 8002
+
+spring:
+  application:
+    name: employee-service
+    
+  #Dev config
+  devtools:
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
+    
+  resources:
+    static-locations: classpath:/META-INF/resources/**,classpath:/resources/**
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    timeout:
+      seconds: 900
+          
+eureka:
+  instance:
+    appname: employee-service
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
+
+# logging level
+logging:
+  level:
+    com.resource.manager: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+  file: app.log
+  pattern:
+    console:%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+    file:%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+
+# proxy
+ribbon:
+  serverListRefreshInterval: 1000
+  ConnectTimeout: 6000
+  ReadTimeout: 3000
+
+hystrix:
+  commanddefault:
+    execution:
+      isolation:
+        thread:
+          timeoutInMilliseconds: 10000
+feign:
+  hystrix:
+    enabled: true
+
+employee-service.url: http://localhost:8002

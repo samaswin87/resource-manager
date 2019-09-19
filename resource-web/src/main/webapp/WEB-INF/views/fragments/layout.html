@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Resource
+  Manager</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<!-- END META SECTION -->
+
+<!-- CSS INCLUDE -->
+<link rel="stylesheet" type="text/css" id="theme"
+  th:href="@{/css/theme-default.css}" />
+<th:block layout:fragment="stylesheet"></th:block>
+<!-- EOF CSS INCLUDE -->
+</head>
+<body>
+  <!-- START PAGE CONTAINER -->
+  <div class="page-container">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+
+    </div>
+    <div th:include="fragments/footer :: footer"></div>
+
+    <div th:replace="fragments/logout :: logout"></div>
+
+  </div>
+  <!-- END PAGE CONTAINER -->
+
+  <!-- START SCRIPTS -->
+  <script type="text/javascript"
+    th:src="@{/js/plugins/jquery/jquery-3.4.1.js}">
+      
+    </script>
+  <script type="text/javascript"
+    th:src="@{/js/plugins/jquery/jquery-ui.js}"></script>
+  <script type="text/javascript"
+    th:src="@{/js/plugins/bootstrap/bootstrap.js}"></script>
+  <!-- END PLUGINS -->
+
+  <!-- START THIS PAGE PLUGINS-->
+  <script type="text/javascript"
+    th:src="@{/js/plugins/icheck/icheck.min.js}"></script>
+  <script type="text/javascript"
+    th:src="@{/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.js}"></script>
+  <script type="text/javascript"
+    th:src="@{/js/plugins/scrolltotop/scrolltopcontrol.js}"></script>
+  <!-- END THIS PAGE PLUGINS-->
+
+  <!-- START TEMPLATE -->
+  <script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+  <script type="text/javascript" th:src="@{/js/actions.js}"></script>
+  <!-- END TEMPLATE -->
+  <!-- END SCRIPTS -->
+  <th:block layout:fragment="script"></th:block>
+</body>
+</html>
