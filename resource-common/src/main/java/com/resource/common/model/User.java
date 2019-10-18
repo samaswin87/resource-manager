@@ -1,52 +1,54 @@
 package com.resource.common.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+
+/**
+ * The persistent class for the users database table.
+ * 
+ */
 @Entity
-@Table(name = "users")
+@Table(name="users")
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"role"}, callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude= {"roles", "employee"})
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User extends Auditable<String> implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	@NotNull
-	@Column(name = "username", length = 40)
-	private String username;
-	
-	@NotNull
-	@Column(name = "password", length = 120)
+
+	private byte enabled;
+
 	private String password;
-	
-	@Column(name = "enabled")
-	private Boolean enabled;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
-	private Role role;
+
+	private String username;
+
+	//bi-directional many-to-one association to Role
+	@OneToMany(mappedBy="user")
+	private List<Role> roles;
+
+	//bi-directional many-to-one association to Employee
+	@ManyToOne
+	private Employee employee;
+
 }

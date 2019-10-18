@@ -46,7 +46,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <a th:href="${#employees.add()}" class="btn btn-success btn-block">
+                    <a th:href="${#admin.employee_add.path()}" class="btn btn-success btn-block">
                       <span class="fa fa-plus"></span> Add new employee
                     </a>
                   </div>
@@ -79,7 +79,7 @@
                   </p>
                   <p>
                     <small>Name</small><br />
-                    <a th:href="${#employees.edit(employee.id)}"><label th:text="${employee.fullName()}"></label></a>
+                    <a th:href="@{${#admin.employee_show.path()}(id=${employee.getEmployeeCode()})}" th:text="${employee.fullName()}"></a>
                   </p>
                 </div>
               </div>
@@ -89,7 +89,7 @@
         </div>
       </div>
       <div th:replace="/fragments/pagination :: pagination(${employees})"></div>
-           
+
     </div>
     <!-- END PAGE CONTENT WRAPPER -->
   </div>

@@ -1,0 +1,80 @@
+<!-- START STRIPED TABLE -->
+<th:block th:each="dependent : ${currentDependents}">
+<div class="panel panel-default">
+    <div class="panel-heading panel-table">
+        <h3 class="panel-title" th:text="'Dependent - ' + ${dependent.getRelationshipName()}"></h3>
+        <button class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</button>
+    </div>
+    <div class="panel-body">
+        <table class="panel-view">
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td th:text="${dependent.getFirstName()}"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td th:text="${dependent.getLastName()}"></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-flag fa-span"></span>Country</td>
+                    <td th:text="${dependent.getCountry()}"></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td th:text="${dependent.getCity()}"></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-map-pin fa-lg fa-span"></span>Postal Code</td>
+                    <td th:text="${dependent.getPostalCode()}"></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-calendar-check-o fa-span"></span>Start Date</td>
+                    <td th:text="${dependent.getStartDate()}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</th:block>
+
+<div class="panel">
+    <div class="panel-heading panel-list">
+        <h3 class="panel-title">Dependent History</h3>
+    </div>
+    <div class="panel-body panel-body-table">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-actions">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Postal Code</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="dependent : ${dependents}">
+                    <tr>
+                        <td th:text="${dependent.getRelationshipName()}"></td>
+                        <td th:text="${dependent.getFirstName()}"></td>
+                        <td th:text="${dependent.getLastName()}"></td>
+                        <td th:text="${dependent.getStartDate()}"></td>
+                        <td th:text="${dependent.getEndDate()}"></td>
+                        <td th:text="${dependent.getCountry()}"></td>
+                        <td th:text="${dependent.getCity()}"></td>
+                        <td th:text="${dependent.getPostalCode()}"></td>
+                        <td><a class="btn btn-default btn-rounded btn-sm" href="#"><span class="fa fa-pencil"></span></a></td>
+                    </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- END STRIPED TABLE -->

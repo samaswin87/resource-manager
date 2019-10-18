@@ -4,7 +4,14 @@ server:
 spring:
   application:
     name: resource-web
-  
+  main:
+    lazy-initialization: true
+  profiles:
+    active: dev
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+      
   #Dev config
   devtools:
     restart:
@@ -30,9 +37,13 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
+        enable_lazy_load_no_trans: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        id:
+          new_generator_mappings: false
+
 entitymanager:
-  packagesToScan: com.resource.manager, com.employee.resource, com.resource.common
+  packagesToScan: com.resource.manager, com.employee.resource, com.resource.common, com.company.resource
    
   cloud:
     config:
@@ -42,19 +53,12 @@ entitymanager:
   resources:
     static-locations: classpath:/META-INF/resources/**,classpath:/resources/**
 
-  session:
-    store-type: jdbc
-    jdbc:
-      initialize-schema: never
-    timeout:
-      seconds: 900
-
 eureka:
   instance:
     appname: resource-web
   client:
-    registerWithEureka: true
-    fetchRegistry: true
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
       defaultZone: http://localhost:8001/eureka/
 
@@ -63,17 +67,6 @@ eureka:
 #  ConnectTimeout: 6000
 #  ReadTimeout: 3000
 #  SocketTimeout: 6000
-
-#zuul:
-#  ignoredServices: '*'
-#  routes:
-#    company-service:
-#      path: /companies/**
-#      serviceId: company-service
-#      sensitiveHeaders:
-
-# company-service.ribbon.NFLoadBalancerRuleClassName: com.resource.manager.config.StickySessionRule
-
 
 # logging level
 logging:

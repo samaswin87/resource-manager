@@ -5,6 +5,13 @@
 	<li class="xn-icon-button"><a href="#"
 		class="x-navigation-minimize"><span class="fa fa-dedent"></span></a></li>
 	<!-- END TOGGLE NAVIGATION -->
+	<!-- COMPANY SEARCH -->
+	<li class="xn-icon-company">
+		<select>
+			<option th:each="company : ${session.companies}" th:value="${company.getId()}" th:text="${company.getName()}" th:selected="${session.currentCompany.getId() == company.getId()}"></option>
+		</select>
+  </li>
+  <!-- END COMPANY SEARCH -->
 	<!-- SEARCH -->
 	<li class="xn-search">
 		<form role="search">
@@ -12,6 +19,7 @@
 		</form>
 	</li>
 	<!-- END SEARCH -->
+	<th:block th:include="fragments/top-navigation" />
 	<!-- SIGN OUT -->
 	<li class="xn-icon-button pull-right"><a href="#"
 		class="mb-control" data-box="#mb-signout"><span

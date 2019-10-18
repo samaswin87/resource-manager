@@ -23,6 +23,10 @@
   	<module>timesheet-service</module>
   	<module>resource-common</module>
   	<module>resource-web</module>
+  	
+  	
+  	<module>test-helper</module>
+  	<module>employee-service</module>
   </modules>
   
   <repositories>

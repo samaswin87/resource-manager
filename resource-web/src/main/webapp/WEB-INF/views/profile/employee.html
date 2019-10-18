@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+    <div class="panel-body profile bg-info">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="employee-image">
+                    <div th:replace="/profile/profile_image :: profile_image(${employee})"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p><label class="caption">Name:</label><label class="detail" th:text="${employee.getName()}"></label></p>
+                <p><label class="caption">Code:</label><label class="detail" th:text="${employee.getEmployeeCode()}"></label></p>
+                <p><label class="caption">Email:</label><label class="detail" th:text="${employee.getEmail()}"></label></p>
+                <p><label class="caption">Possition:</label><label class="detail">Software Engineer</label></p>
+            </div>
+            <div class="col-md-4 pull-right">
+                <p><label class="caption">Employee Type:</label><label class="detail">Full Timer</label></p>
+                <p><label class="caption">Start Date:</label><label class="detail" th:text="${employee.getStartedOn()}"></label></p>
+                <p><label class="caption">Status:</label><label class="detail"><span class="label label-success">Active</span></label></p>
+            </div>
+        </div>
+    </div>
+</div>

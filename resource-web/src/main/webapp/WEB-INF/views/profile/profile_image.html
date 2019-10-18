@@ -1,0 +1,8 @@
+<th:block th:fragment="profile_image(employee)">
+  <th:block th:if="${employee.getProfile() != null}">
+      <img th:src="@{${#admin.employee_profile.path()}(id=${employee.getId()})}" />
+  </th:block>
+  <th:block th:if="${employee.getProfile() == null}">
+      <img src="/assets/images/users/no-image.jpg" />
+  </th:block>
+</th:block>

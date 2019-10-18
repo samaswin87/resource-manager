@@ -1,0 +1,27 @@
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: test
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/resource-test
+    username: root
+    password: 
+    driverClassName: com.mysql.cj.jdbc.Driver
+    max-active: 20
+    max-idle: 8
+    min-idle: 8
+    initial-size: 10
+  
+  jpa:
+    database: MySQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+

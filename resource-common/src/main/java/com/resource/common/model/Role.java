@@ -2,43 +2,38 @@ package com.resource.common.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * The persistent class for the roles database table.
+ * 
+ */
 @Entity
-@Table(name = "roles", uniqueConstraints = { 
-		@UniqueConstraint(columnNames = "id") 
-	})
+@Table(name="roles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role implements Serializable{
-	
+@NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
+public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@NotNull
-	@Column(name = "role_name", length = 20)
+	@Column(name="role_name")
 	private String roleName;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="user_id")
-	private User user;
 
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	private User user;
 }

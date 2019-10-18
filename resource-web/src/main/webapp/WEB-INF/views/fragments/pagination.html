@@ -1,15 +1,15 @@
 <div th:fragment="pagination(objects)">
-  <div class="row" th:if="${objects.getTotalPages() > 0}">
-    <div class="col-md-12">
-      <ul
-        class="pagination pagination-sm pull-right push-down-10 push-up-10">
-        <li class="disabled"><a href="#">«</a></li>
-        <li th:each="pageNumber : ${pageNumbers}"
-          th:class="${pageNumber == objects.number + 1} ? active"><a
-          th:href="@{${#httpServletRequest.requestURI}(page=${pageNumber})}"
-          th:text="${pageNumber}"></a></li>
-        <li><a href="#">»</a></li>
-      </ul>
+    <div class="row" th:if="${objects != null && objects.getTotalPages() > 1}">
+        <div class="col-md-12">
+            <ul class="pagination pagination-sm pull-right push-down-10 push-up-10">
+                <li th:class="${#bools.isTrue(isFirst)} ? disabled : null"><a th:href="@{${url}(page=${first})}"><span class="fa fa-fast-backward"></span></a></li>
+                <li th:class="${#bools.isTrue(isFirst)} ? disabled : null"><a th:href="@{${url}(page=${prev})}"><span class="fa fa-step-backward"></span></a></li>
+                <li th:each="pageNumber : ${pageNumbers}" th:class="${pageNumber == objects.number + 1} ? active" th:if="${pageNumber <= 5}">
+                  <a th:href="@{${url}(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                </li>
+                <li th:class="${#bools.isTrue(isLast)} ? disabled : null"><a th:href="@{${url}(page=${next})}"><span class="fa fa-step-forward"></span></a></li>
+                <li th:class="${#bools.isTrue(isLast)} ? disabled : null"><a th:href="@{${url}(page=${last})}"><span class="fa fa-fast-forward"></span></a></li>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>

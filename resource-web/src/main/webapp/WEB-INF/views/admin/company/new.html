@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Companies</title>
+<head>
+</head>
+<body>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content" layout:fragment="content">
+    <div th:replace="/fragments/navigation :: navigation"></div>
+
+    <!-- START BREADCRUMB -->
+    <ul class="breadcrumb">
+      <li><a href="#">Companies</a></li>
+      <li class="active">New Companies</li>
+    </ul>
+    <!-- END BREADCRUMB -->
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+      <div class="row">
+        <div class="col-md-10">
+          <!-- START DEFAULT FORM ELEMENTS -->
+          <div class="block">
+            <form class="form-horizontal" th:action="${#admin.company_add.path()}" th:object="${company}" method="post" role="form">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong>Add new company</strong></h3>
+              </div>
+              <div class="panel-body">
+                  <div class="form-group mandatory"><label class="col-md-2 control-label">Name</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" th:field="*{name}"/>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mandatory"><label class="col-md-2 control-label">Start Date</label>
+                    <div class="col-md-7">
+                      <div class="input-group">
+                        <input type="text" class="form-control" th:field="*{startDate}" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group"><label class="col-md-2 control-label">End Date</label>
+                    <div class="col-md-7">
+                      <div class="input-group">
+                        <input type="text" class="form-control" th:field="*{endDate}"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                    </div>
+                     <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mandatory"><label class="col-md-2 control-label">Trail Start Date</label>
+                    <div class="col-md-7">
+                      <div class="input-group">
+                        <input type="text" class="form-control" th:field="*{trailStartedOn}" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('trailStartedOn')}" th:errors="*{trailStartedOn}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mandatory"><label class="col-md-2 control-label">Trail End Date</label>
+                    <div class="col-md-7">
+                      <div class="input-group">
+                        <input type="text" class="form-control" th:field="*{trailEndedOn}"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('trailEndedOn')}" th:errors="*{trailEndedOn}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group mandatory"><label class="col-md-2 control-label">Email</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" th:field="*{email}"/>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group"><label class="col-md-2 control-label">Parent Company</label>
+                    <div class="col-md-7">
+                      <select th:field="*{parent}" class="form-control select">
+                          <option value="0">Select a company</option>
+                          <option th:each="company : ${companies}" th:value="${company.getId()}" th:text="${company.getName()}">
+                          </option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                      <small class="text-danger" th:if="${#fields.hasErrors('parent')}" th:errors="*{parent}" ></small>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group"><label class="col-md-2 control-label">Status</label>
+                    <div class="col-md-10">
+                      <span class="gender">In Active</span>
+                      <label class="switch status">
+                          <input type="checkbox" th:field="*{active}" checked value="1"/>
+                          <span></span>
+                      </label>
+                      <span class="gender">Active</span>
+                  </div>
+                 </div>
+              </div>
+              <div class="panel-footer">
+                  <button class="btn btn-primary">Save</button>
+                  <a class="btn btn-default" th:href="${#admin.company_list.path()}">Cancel</a>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+  </div>
+  <th:block layout:fragment="script">
+	  <script>
+	  $(document).ready(function (){
+      var date = new Date();
+      var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      var end = new Date(date.getFullYear(), date.getMonth()+1, date.getDate());
+      $("#startDate,#endDate,#trailStartedOn").datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        startDate: today,
+        autoclose: true
+      });
+      $('#startDate,#trailStartedOn').datepicker('setDate', today);
+
+      $("#trailEndedOn").datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        startDate: end,
+        autoclose: true
+      });
+      $('#trailEndedOn').datepicker('setDate', end);
+	  });
+	  </script>
+  </th:block>
+</body>
+</html>

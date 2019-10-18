@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Employee</h3>
+            <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <th:block th:include="admin/employee/wizard"></th:block>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-primary disabled" id="previous"><span class="fa fa-chevron-circle-left"></span> Previous</button>
+                        <button class="btn btn-primary pull-right" id="next"><span class="fa fa-chevron-circle-right"></span> Next</button>
+                    </div>
+                    <th:block th:include="admin/employee/personal" th:if="${#bools.isTrue(partial.isPersonal())}"></th:block>
+                    <th:block th:include="admin/employee/addresses" th:if="${#bools.isTrue(partial.isAddresses())}"></th:block>
+                    <th:block th:include="admin/employee/dependents" th:if="${#bools.isTrue(partial.isDependents())}"></th:block>
+                    <th:block th:include="admin/employee/contacts" th:if="${#bools.isTrue(partial.isContacts())}"></th:block>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready( function() {
+            /*<![CDATA[*/
+            var partial = /*[[${partial.getName()}]]*/ ;
+            /*]]>*/
+            $("#"+partial).addClass('selected');
+            if (partial != 'personal'){
+                $("#previous").removeClass('disabled');
+            }
+
+            $("#next").click(function (){
+                var uri = window.location.href.replace( /[\?#].*|$/, "")
+                $("div .block ul li .selected").removeClass('selected');
+                $("#"+partial).addClass('selected');
+
+                var new_select = $(".anchor.steps_4 li .selected").parent().next().find("a");
+
+                if (new_select.length == 0) {
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "");
+                    return;
+                }
+
+                window.location.href = window.location.href.replace( /[\?#].*|$/, "?view="+new_select[0].id);
+            });
+
+            $("#previous").click(function (){
+                var uri = window.location.href.replace( /[\?#].*|$/, "")
+                var new_select = $(".anchor.steps_4 li .selected").parent().prev().find("a");
+
+                if (new_select[0].id == 'personal') {
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "");
+                    return;
+                }
+                $("div .block ul li .selected").removeClass('selected');
+
+                window.location.href = window.location.href.replace( /[\?#].*|$/, "?view="+new_select[0].id);
+            });
+        });
+    </script>
+    </th:block>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Companies</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Companies</a></li>
+            <li class="active">Manage Companies</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Companies List</h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form class="form-horizontal" id="search_form" th:action="${#admin.company_search.path()}" th:method="get">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-search"></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter company name" th:value="${#httpServletRequest.getParameter('name')}" />
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a th:href="${#admin.company_add.path()}" class="btn btn-success btn-block"> <span class="fa fa-plus"></span> Add new company
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- START RESPONSIVE TABLES -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Companies list</h3>
+                        </div>
+                        <div class="panel-body panel-body-table">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-actions">
+                                    <thead>
+                                        <tr>
+                                            <th width="50">ID</th>
+                                            <th width="100">Name</th>
+                                            <th width="100">Start Date</th>
+                                            <th width="100">End Date</th>
+                                            <th width="100">Trail Start Date</th>
+                                            <th width="100">Trail End Date</th>
+                                            <th width="100">Status</th>
+                                            <th width="100">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="trow_1" th:each="company: ${companies}">
+                                            <td th:text="${company.getId()}"></td>
+                                            <td><strong th:text="${company.getName()}"></strong></td>
+                                            <td th:text="${company.getStartDate()}"></td>
+                                            <td th:text="${company.getEndDate()}"></td>
+                                            <td th:text="${company.getTrailStartedOn()}"></td>
+                                            <td th:text="${company.getTrailEndedOn()}"></td>
+                                            <td><span class="label" th:classappend="${company.getActive() == 0} ? label-danger : label-success" th:text="${company.getStatus()}"></span></td>
+                                            <td>
+                                                <a class="btn btn-default btn-rounded btn-sm" th:href="@{${#admin.company_edit.path()}(id=${company.getId()})}">
+                                                    <span class="fa fa-pencil"></span>
+                                                </a>
+                                                <form id="delete_form" th:action="@{${#admin.company_delete.path()}(id=${company.getId()})}" th:object="${company}" th:method="delete">
+                                                    <button th:if="${company.getId() != currentCompany.getId()}" class="btn btn-default btn-rounded btn-sm" id="delete_event">
+                                                        <span class="fa fa-times"></span>
+                                                    </button>
+                                                </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END RESPONSIVE TABLES -->
+            <div th:replace="/fragments/pagination :: pagination(${companies})"></div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <th:block layout:fragment="message_box">
+        <!-- START MODALS -->
+        <div class="modal fade" id="delete_company" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Are you sure to delete the company?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="delete" class="btn btn-default" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- EOF MODALS -->
+    </th:block>
+    <th:block layout:fragment="script">
+        <script>
+        $(document).ready(function() {
+            $("#delete_event").on("click", function(event) {
+                event.preventDefault();
+                $('#delete_company').modal('show');
+                return false;
+            });
+
+            $("#delete").on("click", function(event) {
+                event.preventDefault();
+                $("#delete_form").submit();
+            });
+        });
+        </script>
+    </th:block>
+</body>
+
+</html>

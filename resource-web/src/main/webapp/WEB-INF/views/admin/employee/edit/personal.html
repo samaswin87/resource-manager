@@ -1,0 +1,135 @@
+<!-- START STRIPED TABLE -->
+<div class="panel panel-default" th:fragment="personal">
+    <div class="panel-heading panel-table">
+        <h3 class="panel-title">Employee details</h3>
+    </div>
+    <div class="panel-body">
+        <table class="panel-view">
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" disabled="true" th:value="${employee.getName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Code</td>
+                    <td><input type="text" disabled="true" th:value="${employee.getEmployeeCode()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-calendar-check-o fa-span"></span>Started On</td>
+                    <td><input type="text" th:field="*{startedOn}" th:value="${employee.getStartedOn()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-calendar-times-o fa-span"></span>Deactivated On</td>
+                    <td><input type="text" th:field="*{endedOn}" th:value="${employee.getEndedOn()}" class="form-control" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-table">
+        <h3 class="panel-title">Personal details</h3>
+    </div>
+    <div class="panel-body">
+        <table class="panel-view">
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" th:field="*{firstName}" th:value="${employee.getFirstName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Middle Name</td>
+                    <td><input type="text" th:field="*{middleName}" th:value="${employee.getMiddleName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" th:field="*{lastName}" th:value="${employee.getLastName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Display first Name</td>
+                    <td><input type="text" th:field="*{personalDetail.displayFirstName}" th:value="${personal.getDisplayFirstName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Display last Name</td>
+                    <td><input type="text" th:field="*{personalDetail.displayLastName}" th:value="${personal.getDisplayLastName()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td><input type="text" th:field="*{personalDetail.birthDate}" th:value="${personal.getBirthDate()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <span class="gender">Female</span>
+                        <label class="switch text">
+                            <input type="checkbox" th:field="*{gender}" value="${employee.getGender()}"/>
+                            <span></span>
+                        </label>
+                        <span class="gender">Male</span>
+                  </td>
+                </tr>
+                <tr>
+                    <td>Marital status</td>
+                    <td>
+                        <select th:field="*{personalDetail.maritalStatus}" class="form-control select">
+                          <option th:each="status : ${T(com.resource.common.constants.MaritalStatus).getStatuses()}" th:value="${status.getId()}" th:text="${status.getName()}">
+                          </option>
+                      </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-table">
+        <h3 class="panel-title">Contacts</h3>
+    </div>
+    <div class="panel-body">
+        <table class="panel-view">
+            <tbody>
+                <tr>
+                    <td><span class="fa fa-envelope fa-span"></span>Company Email</td>
+                    <td><input type="text" th:field="*{email}" th:value="${employee.getEmail()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-envelope fa-span"></span>Personal Email</td>
+                    <td><input type="text" th:field="*{personalDetail.email}" th:value="${personal.getEmail()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-mobile-phone fa-lg fa-span"></span>Mobile number</td>
+                    <td><input type="text" th:field="*{personalDetail.mobileNumber}" th:value="${personal.getMobileNumber()}" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-phone fa-lg fa-span"></span>Phone number</td>
+                    <td><input type="text" th:field="*{personalDetail.phoneNumber}" th:value="${personal.getPhoneNumber()}" class="form-control" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading panel-table">
+        <h3 class="panel-title">Nationality</h3>
+    </div>
+    <div class="panel-body">
+        <table class="panel-view">
+            <tbody>
+                <tr>
+                    <td><span class="fa fa-flag fa-span"></span>Nationality</td>
+                    <td>
+                        <select th:field="*{personalDetail.nationalityId}" class="form-control select">
+                            <option th:each="country : ${T(com.resource.common.constants.Country).geCountries()}" th:value="${country.getId()}" th:text="${country.getName()}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="fa fa-id-card-o fa-span"></span>Passport number</td>
+                    <td><input type="text" th:field="*{personalDetail.passportNumber}" th:value="${personal.getPassportNumber()}" class="form-control" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END STRIPED TABLE -->

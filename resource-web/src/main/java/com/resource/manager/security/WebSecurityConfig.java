@@ -14,34 +14,31 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import com.resource.common.config.Roles;
+import com.resource.common.constants.Roles;
 import com.resource.manager.service.WebUserService;
 
 @Configuration
 @EnableWebSecurity
-//Session: https://www.baeldung.com/spring-security-session
-// try this : https://github.com/spring-projects/spring-session/blob/2.1.8.RELEASE/samples/boot/findbyusername/src/main/java/sample/session/SessionDetailsFilter.java
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter { 
-	
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private WebUserService service;
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(
 				"/resources/**",
 				"/img/**",
 				"/css/**",
-				"/js/**", 
+				"/js/**",
 				"/assets/**",
-                "/robots.txt",  
+                "/robots.txt",
                 "/favicon.ico"
 				);
 	}
-	
+
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		System.out.println(Roles.ADMIN.getRole());
 		http.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/error").permitAll()
@@ -54,11 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true)
 			.logoutSuccessUrl("/login?logout=true").permitAll().logoutUrl("/logout")
 			.deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler());
-		
+
 		http.authorizeRequests()
 			.antMatchers("/home")
 			.hasAnyRole(Roles.getRoles());
-		
+
 		http.authorizeRequests()
 			.antMatchers("/admin/**")
 			.hasAuthority(Roles.ADMIN.getRole())
@@ -66,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling()
 			.accessDeniedHandler(accessDeniedHandler());
 	}
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(service).passwordEncoder(passwordEncoder());
@@ -76,17 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
-	
+
 	@Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler();
     }
-	
+
 	@Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();

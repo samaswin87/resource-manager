@@ -2,6 +2,8 @@ package com.resource.manager.service;
 
 import java.util.Arrays;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,11 +19,11 @@ public class WebUserService implements UserDetailsService {
 	@Autowired
 	IUserService service;
 	
+	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		com.resource.common.model.User activeUser = service.getActiveUser(userName);
-		System.out.println(activeUser.getRole().getRoleName());
-		GrantedAuthority authority = new SimpleGrantedAuthority(activeUser.getRole().getRoleName());
+		GrantedAuthority authority = new SimpleGrantedAuthority(activeUser.getRoles().get(0).getRoleName());
 		UserDetails userDetails = (UserDetails)new User(activeUser.getUsername(), activeUser.getPassword(), Arrays.asList(authority));
 		return userDetails;
 	}

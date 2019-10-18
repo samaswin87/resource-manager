@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Edit Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Employee: <label th:text="${employee.getName()}"></label></h3>
+            <a th:href="@{${#admin.employee_show.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to show</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <th:block th:include="common/errors" th:if="${not #lists.isEmpty(errors)}"></th:block>
+                    <form class="form-horizontal" id="fixed-footer" th:action="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" th:object="${employee}" method="post">
+                        <th:block th:include="admin/employee/edit/personal"></th:block>
+                        <div class="panel-footer">
+                            <button class="btn btn-primary">Save</button>
+                            <a class="btn btn-default" th:href="@{${#admin.employee_show.path()}(id=${employee.getId()})}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <th:block layout:fragment="script">
+        <script>
+        $(document).ready(function() {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            $("#startedOn, #endedOn, #personalDetail.birthDate").datepicker({
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                autoclose: true,
+            });
+        });
+        </script>
+    </th:block>
+</body>
+
+</html>
