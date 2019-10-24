@@ -7,7 +7,7 @@ public enum City {
 
 	NOT_AVAILABLE(0, "Not available"),
 	OTHERS(40, "OTHERS"),
-	
+
 	// INDIAN CITIES
 	MUMBAI(1, "Mumbai"),
 	DELHI(2, "Delhi"),
@@ -307,7 +307,7 @@ public enum City {
 	JEHANABAD(296, "Jehanabad"),
 	AURANGABAD(297, "Aurangabad"),
 	GANGTOK(298, "Gangtok");
-	
+
 	private Integer id;
 	private String name;
 
@@ -330,10 +330,10 @@ public enum City {
 				return city;
 			}
 		}
-		return null;
+		return City.CHENNAI;
 	}
-	
-	public static List<City> geCities() {
+
+	public static List<City> getCities() {
    	 	return Arrays.asList(City.values());
     }
 }

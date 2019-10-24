@@ -1,9 +1,6 @@
 package com.employee.resource.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,14 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.employee.resource.constants.view.EmployeePartial;
 import com.employee.resource.service.IEmployeeService;
 import com.resource.common.controller.AdminController;
-import com.resource.common.model.Dependent;
 import com.resource.common.model.Employee;
 import com.resource.common.model.Profile;
 import com.resource.common.routes.AdminPath;
-import com.resource.common.view.EnableTags;
 import com.resource.common.view.PaginatedList;
 
 @Controller
@@ -61,31 +55,6 @@ public class EmployeeController extends AdminController {
 		return AdminPath.employee_list.path();
 	}
 	
-	@EnableTags({"employee_menu"})
-	@GetMapping(value = "/employee/{id}")
-	public String show(ModelMap map, @PathVariable("id") String code, @RequestParam("view") Optional<String> view) {
-		List<String> errors = new ArrayList<String>();
-		Employee employee = employeeService.findByCode(code);
-		String page = view.orElse(EmployeePartial.PERSONAL.getName());
-		EmployeePartial partial = EmployeePartial.getPartial(page);
-		if(partial == null) {
-			errors.add("Missing partials. Please reload a page!");
-		}
-		
-		if (employee != null){
-			map = setMap(map, employee, partial, page);
-			
-		}else {
-			errors.add("Employee not present in the system");
-			return AdminPath.employee_list.redirect();
-		}
-		
-		map.addAttribute("partial", partial);
-		return "admin/employee/show";
-	}
-	
-	
-
 	@DeleteMapping(value = "/employee/{id}/delete", headers = "Accept=application/json")
 	public ResponseEntity<String> delete(@PathVariable("id") String code) {
 		Employee employee = employeeService.findByCode(code);
@@ -112,29 +81,4 @@ public class EmployeeController extends AdminController {
 			                .contentType(profile.getType())
 			                .body(profile.getImage());
 	}
-	
-	private ModelMap setMap(ModelMap map, Employee employee, EmployeePartial partial, String page) {
-		map.addAttribute("employee", employee);
-		map.addAttribute("employeeProfile", employee.getProfile());
-		if (partial.isPersonal())
-			map.addAttribute(page, employee.getPersonalDetail());
-		else if (partial.isAddresses()) {
-			map.addAttribute("currentAddress", employee.getCurrentAddress());
-			map.addAttribute(page, employee.getAddressHistory());
-		} else if (partial.isDependents()) {
-			List<Dependent> dependents = employee.getDependents();
-			List<Dependent> currentDependents = dependents.stream()
-													   .filter(a -> a.isCurrent() && a.getEndDate() == null)
-													   .collect(Collectors.toList());
-			map.addAttribute("currentDependents", currentDependents);
-			List<Dependent> pastDependents = dependents.stream()
-													   .filter(a -> !a.isCurrent())
-													   .collect(Collectors.toList());
-			map.addAttribute(page, pastDependents);
-		} else if (partial.isContacts()) {
-			map.addAttribute(page, employee.getEmergencyContacts());
-		}
-		return map; 
-	}
-	
 }

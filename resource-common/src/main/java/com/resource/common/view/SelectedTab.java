@@ -6,12 +6,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EnableTags {
-	
-	String selected() default "";
-	
-	String[] value();
+public @interface SelectedTab {
+
+	String value();
 }

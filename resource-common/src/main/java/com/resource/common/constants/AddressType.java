@@ -1,5 +1,8 @@
 package com.resource.common.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum AddressType {
 		
 	GENERAL_ADDRESS(1, "General Address"), PERMANENT_ADDRESS(2, "Perment Address"), WORK_ADDRESS(3, "Work Address");
@@ -26,6 +29,10 @@ public enum AddressType {
 				return type;
 			}
 		}
-		return null;
+		return AddressType.GENERAL_ADDRESS;
+	}
+	
+	public static List<AddressType> getAddressTypes() {
+		return Arrays.asList(AddressType.values());
 	}
 }

@@ -19,11 +19,14 @@ import com.employee.resource.service.IPersonalDetailService;
 import com.resource.common.controller.AdminController;
 import com.resource.common.model.Employee;
 import com.resource.common.model.PersonalDetail;
+import com.resource.common.model.Profile;
 import com.resource.common.routes.AdminPath;
 import com.resource.common.validation.GroupPersonalInfo;
 import com.resource.common.view.EnableTags;
+import com.resource.common.view.SelectedTab;
 
 @Controller
+@EnableTags(value = {"personal_settings", "employee_settings"}, selected = "personal_settings")
 public class PersonalDetailController extends AdminController {
 	
 	@Autowired
@@ -35,7 +38,24 @@ public class PersonalDetailController extends AdminController {
 	@Autowired
 	private Validator validator;
 	
-	@EnableTags({"employee_menu"})
+	@SelectedTab("personal")
+	@GetMapping(value = "/employee/{id}/personal")
+	public String show(ModelMap map, @PathVariable("id") String code) {
+		Employee employee = employeeService.findByCode(code);
+		map.addAttribute("employee", employee);
+		map.addAttribute("employeeProfile", employee.getProfile());
+		
+		if (employee.getProfile() == null)
+			map.addAttribute("employeeProfile", new Profile());
+		
+		map.addAttribute("personal", employee.getPersonalDetail());
+		if (employee.getPersonalDetail() == null)
+			map.addAttribute("personal", new PersonalDetail());
+		
+		return AdminPath.employee_personal_show.partial();
+	}
+	
+	@SelectedTab("personal")
 	@GetMapping(value = "/employee/{id}/personal/edit")
 	public String edit(ModelMap map, @PathVariable("id") String code) {
 		List<String> errors = new ArrayList<String>();
@@ -45,13 +65,19 @@ public class PersonalDetailController extends AdminController {
 		
 		if(errors.isEmpty()) {
 			map.addAttribute("employee", employee);
+			map.addAttribute("employeeProfile", employee.getProfile());
+			if (employee.getProfile() == null)
+				map.addAttribute("employeeProfile", new Profile());
+			
 			map.addAttribute("personal", employee.getPersonalDetail());
+			if (employee.getPersonalDetail() == null)
+				map.addAttribute("personal", new PersonalDetail());
 		}
 		map.addAttribute("errors", errors);
 		return AdminPath.employee_personal_edit.partial();
 	}
-
-	@EnableTags({"employee_menu"})
+	
+	@SelectedTab("personal")
 	@PostMapping(value = "/employee/{id}/personal/edit")
 	public String update(ModelMap map, @PathVariable("id") String code, Employee employee) {
 		List<String> errors = new ArrayList<String>();
@@ -70,8 +96,16 @@ public class PersonalDetailController extends AdminController {
 			personalDetailViolations.stream().forEach(e -> errors.add(e.getMessage()));
 		}
 		
-		if(errors.isEmpty()) {
+		if(!errors.isEmpty()) {
 			map.addAttribute("errors", errors);
+			map.addAttribute("employeeProfile", employee.getProfile());
+			if (employee.getProfile() == null)
+				map.addAttribute("employeeProfile", new Profile());
+			
+			map.addAttribute("personal", employee.getPersonalDetail());
+			if (employee.getPersonalDetail() == null)
+				map.addAttribute("personal", new PersonalDetail());
+			
 			return AdminPath.employee_personal_edit.partial();
 		}
 
@@ -80,12 +114,16 @@ public class PersonalDetailController extends AdminController {
 		PersonalDetail updatedPersonalDetail = employee.getPersonalDetail();
 		PersonalDetail existingPersonalDetail = existingEmployee.getPersonalDetail();
 		employee.setPersonalDetail(null);
-		mapper.setField("employeeCode");
+		mapper.setExceptFields("employeeCode");
 		existingEmployee = mapper.merge(existingEmployee, employee);
 		employeeService.update(existingEmployee);
 		
 		existingPersonalDetail = mapper.merge(existingPersonalDetail, updatedPersonalDetail);
 		personalService.update(existingPersonalDetail);
-		return AdminPath.employee_show.redirect();
+		
+		// Without this the view attributes will shown in the url 
+		// https://stackoverflow.com/a/26175415
+		map.clear();
+		return AdminPath.employee_personal_show.redirect();
 	}
 }

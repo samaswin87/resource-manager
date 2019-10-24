@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Edit emergency contact</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Employee: <label th:text="${employee.getName()}"></label></h3>
+            <a th:href="@{${#admin.employee_show.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to show</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <th:block th:include="common/errors" th:if="${not #lists.isEmpty(errors)}"></th:block>
+                    <form class="form-horizontal" id="fixed-footer" th:action="@{${#admin.employee_contact_edit.path()}(id=${employee.getEmployeeCode()}, contactId=${contact.getId()})}" th:object="${contact}" method="post">
+                        <!-- START STRIPED TABLE -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-table">
+                                <h3 class="panel-title" th:text="${contact.getRelationshipName()}"></h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="panel-view">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td><input type="text" th:field="*{name}" th:value="${contact.getName()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>First name</td>
+                                            <td><input type="text" th:field="*{firstName}" th:value="${contact.getFirstName()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last name</td>
+                                            <td><input type="text" th:field="*{lastName}" th:value="${contact.getLastName()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td><textarea th:field="*{address}" th:value="${contact.getAddress()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><input type="text" th:field="*{email}" th:value="${contact.getEmail()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile number</td>
+                                            <td><input type="text" th:field="*{mobileNumber}" th:value="${contact.getMobileNumber()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone number</td>
+                                            <td><input type="text" th:field="*{phoneNumber}" th:value="${contact.getPhoneNumber()}" class="form-control" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END STRIPED TABLE -->
+                        <div class="panel-footer">
+                            <button class="btn btn-primary">Save</button>
+                            <a class="btn btn-default" th:href="@{${#admin.employee_contact_show.path()}(id=${employee.getEmployeeCode()})}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <th:block layout:fragment="script">
+        <script>
+        $(document).ready(function() {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            $("#startedOn, #endedOn").datepicker({
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                autoclose: true,
+            });
+        });
+        </script>
+    </th:block>
+</body>
+
+</html>

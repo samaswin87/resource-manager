@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Personal Details</h3>
+            <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <!-- START STRIPED TABLE -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title">Employee details</h3>
+                            <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td th:text="${employee.getName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Code</td>
+                                        <td th:text="${employee.getEmployeeCode()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-calendar-check-o fa-span"></span>Started On</td>
+                                        <td th:text="${employee.getStartedOn()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-calendar-times-o fa-span"></span>Deactivated On</td>
+                                        <td th:text="${employee.getEndedOn()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td><span class="label label-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title">Personal details</h3>
+                            <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td th:text="${employee.getFirstName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Middle Name</td>
+                                        <td th:text="${employee.getMiddleName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td th:text="${employee.getLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td th:text="${employee.getLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Display first Name</td>
+                                        <td th:text="${personal.getDisplayFirstName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Display last Name</td>
+                                        <td th:text="${personal.getDisplayLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td th:text="${personal.getBirthDate()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td th:text="${employee.getGenderName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Marital status</td>
+                                        <td th:text="${personal.getMaritalStatusName()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title">Contacts</h3>
+                            <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td><span class="fa fa-envelope fa-span"></span>Email</td>
+                                        <td th:text="${employee.getEmail()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-mobile-phone fa-lg fa-span"></span>Mobile number</td>
+                                        <td th:text="${personal.getMobileNumber()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-phone fa-lg fa-span"></span>Phone number</td>
+                                        <td th:text="${personal.getPhoneNumber()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title">Nationality</h3>
+                            <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td><span class="fa fa-flag fa-span"></span>Nationality</td>
+                                        <td th:text="${personal.getNationality()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-id-card-o fa-span"></span>Passport number</td>
+                                        <td th:text="${personal.getPassportNumber()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END STRIPED TABLE -->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.company.resource.controller;
+package com.company.resource.admin.controller;
 
 import java.util.List;
 import java.util.Optional;

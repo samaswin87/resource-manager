@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Family Details</h3>
+            <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <!-- START STRIPED TABLE -->
+                    <div class="alert alert-error" role="alert" th:if="${currentDependents.empty}">
+                        <strong>Note</strong> You have not added any dependent details.
+                    </div>
+                    <th:block th:each="dependent : ${currentDependents}" th:if="${!currentDependents.empty}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title" th:text="'Dependent - ' + ${dependent.getRelationshipName()}"></h3>
+                            <a th:href="@{${#admin.employee_dependent_edit.path()}(id=${employee.getEmployeeCode()}, dependentId=${dependent.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td th:text="${dependent.getFirstName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td th:text="${dependent.getLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-flag fa-span"></span>Country</td>
+                                        <td th:text="${dependent.getCountryName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td th:text="${dependent.getCityName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-map-pin fa-lg fa-span"></span>Postal Code</td>
+                                        <td th:text="${dependent.getPostalCode()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-calendar-check-o fa-span"></span>Start Date</td>
+                                        <td th:text="${dependent.getStartDate()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </th:block>
+
+                    <div class="panel" th:if="${!dependents.empty}">
+                        <div class="panel-heading panel-list">
+                            <h3 class="panel-title">Dependent History</h3>
+                        </div>
+                        <div class="panel-body panel-body-table">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-actions">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>First name</th>
+                                            <th>Last name</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Country</th>
+                                            <th>City</th>
+                                            <th>Postal Code</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th:block th:each="dependent : ${dependents}">
+                                        <tr>
+                                            <td th:text="${dependent.getRelationshipName()}"></td>
+                                            <td th:text="${dependent.getFirstName()}"></td>
+                                            <td th:text="${dependent.getLastName()}"></td>
+                                            <td th:text="${dependent.getStartDate()}"></td>
+                                            <td th:text="${dependent.getEndDate()}"></td>
+                                            <td th:text="${dependent.getCountryName()}"></td>
+                                            <td th:text="${dependent.getCityName()}"></td>
+                                            <td th:text="${dependent.getPostalCode()}"></td>
+                                            <td><a class="btn btn-default btn-rounded btn-sm" th:href="@{${#admin.employee_dependent_edit.path()}(id=${employee.getEmployeeCode()}, dependentId=${dependent.getId()})}"><span class="fa fa-pencil"></span></a></td>
+                                        </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END STRIPED TABLE -->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+</html>

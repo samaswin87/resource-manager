@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.resource.common.constants.City;
+import com.resource.common.constants.Country;
 import com.resource.common.constants.RelationshipType;
 
 import lombok.AllArgsConstructor;
@@ -56,14 +58,12 @@ public class Dependent extends Auditable<String> implements Serializable {
 	@Column(name="birth_date", nullable=false)
 	private Date birthDate;
 
-	@Column(length=45)
-	private String city;
+	private Integer city;
 
-	@Column(length=45)
-	private String country;
+	private Integer country;
 
-	@Column(name="disability_status", nullable=false)
-	private byte disabilityStatus;
+	@Column(name="disability_status")
+	private Integer disabilityStatus;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="end_date")
@@ -73,7 +73,7 @@ public class Dependent extends Auditable<String> implements Serializable {
 	private String firstName;
 
 	@Column(nullable=false)
-	private byte gender;
+	private Integer gender;
 
 	@Column(precision=10, scale=2)
 	private BigDecimal income;
@@ -87,7 +87,7 @@ public class Dependent extends Auditable<String> implements Serializable {
 	@Column(name="last_name", nullable=false, length=45)
 	private String lastName;
 
-	@Column(length=45)
+	@Lob
 	private String notes;
 
 	@Column(name="occupation_name", length=45)
@@ -103,30 +103,34 @@ public class Dependent extends Auditable<String> implements Serializable {
 	private int postalCode;
 
 	@Column(name="relation_type_id", nullable=false)
-	private Byte relationTypeId;
+	private Integer relationTypeId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="start_date", nullable=false)
 	private Date startDate;
 
 	@Column(name="status_id", nullable=false)
-	private byte statusId;
+	private Integer statusId;
 
-	@Column(name="tax_deductible", nullable=false)
-	private byte taxDeductible;
+	@Column(name="tax_deductible")
+	private boolean taxDeductible;
 
 	@Column(name="taxable_income", length=45)
 	private String taxableIncome;
 
+	@Column(name="passport_number", length=45)
+	private String passportNumber;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="visa_expiry")
 	private Date visaExpiry;
 
 	@Column(name="visa_number", length=45)
 	private String visaNumber;
-
+	
+	//https://www.startupindia.gov.in/content/sih/en/international/go-to-market-guide/indian-visa.html
 	@Column(name="visa_type_id")
-	private byte visaTypeId;
+	private Integer visaTypeId;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id", nullable=false)
@@ -135,7 +139,14 @@ public class Dependent extends Auditable<String> implements Serializable {
 	private boolean current;
 	
 	public String getRelationshipName() {
-		return RelationshipType.getRelationship(this.relationTypeId.intValue()).getName();
+		return RelationshipType.getRelationship(this.relationTypeId).getName();
 	}
 
+	public String getCountryName() {
+		return Country.getCountry(this.country).getName();
+	}
+	
+	public String getCityName() {
+		return City.getCity(this.city).getName();
+	}
 }

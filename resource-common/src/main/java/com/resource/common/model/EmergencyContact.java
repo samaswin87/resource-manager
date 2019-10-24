@@ -67,16 +67,16 @@ public class EmergencyContact extends Auditable<String> implements Serializable 
 	private String phoneNumber;
 
 	@Column(name="status_id", nullable=false)
-	private byte statusId;
+	private Integer statusId;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id", nullable=false)
 	private Employee employee;
 	
 	@Column(name="relationship_id", nullable=false)
-	private Byte relationshipId;
+	private Integer relationshipId;
 	
 	public String getRelationshipName() {
-		return RelationshipType.getRelationship(this.relationshipId.intValue()).getName();
+		return RelationshipType.getRelationship(this.relationshipId).getName();
 	}
 } 

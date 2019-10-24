@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Address Details</h3>
+            <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <!-- START STRIPED TABLE -->
+                    <div class="alert alert-error" role="alert" th:if="${currentAddress == null}">
+                        <strong>Note</strong> You have not added any address details.
+                    </div>
+                    <div class="panel panel-default" th:if="${currentAddress != null}">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title" th:text="'Current ' + ${currentAddress.getAddressTypeName()}"></h3>
+                            <a th:href="@{${#admin.employee_address_edit.path()}(id=${employee.getEmployeeCode()}, addressId=${currentAddress.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td th:text="${currentAddress.getDetails()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-flag fa-span"></span>Country</td>
+                                        <td th:text="${currentAddress.getCountryName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td th:text="${currentAddress.getStateName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td th:text="${currentAddress.getCityName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-map-pin fa-lg fa-span"></span>Postal Code</td>
+                                        <td th:text="${currentAddress.getPostalCode()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-calendar-check-o fa-span"></span>Started On</td>
+                                        <td th:text="${currentAddress.getStartedOn()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel" th:if="${!addresses.empty}">
+                        <div class="panel-heading panel-list">
+                            <h3 class="panel-title">Address History</h3>
+                        </div>
+                        <div class="panel-body panel-body-table">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-actions">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Started On</th>
+                                            <th>Ended On</th>
+                                            <th>Address</th>
+                                            <th>Country</th>
+                                            <th>State</th>
+                                            <th>City</th>
+                                            <th>Postal Code</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th:block th:each="address : ${addresses}">
+                                        <tr>
+                                            <td th:text="${address.getAddressTypeName()}"></td>
+                                            <td th:text="${address.getStartedOn()}"></td>
+                                            <td th:text="${address.getEndedOn()}"></td>
+                                            <td th:text="${address.getDetails()}"></td>
+                                            <td th:text="${address.getCountryName()}"></td>
+                                            <td th:text="${address.getStateName()}"></td>
+                                            <td th:text="${address.getCityName()}"></td>
+                                            <td th:text="${address.getPostalCode()}"></td>
+                                            <td><a class="btn btn-default btn-rounded btn-sm" th:href="@{${#admin.employee_address_edit.path()}(id=${employee.getId()}, addressId=${address.getId()})}"><span class="fa fa-pencil"></span></a></td>
+                                        </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END STRIPED TABLE -->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+</html>

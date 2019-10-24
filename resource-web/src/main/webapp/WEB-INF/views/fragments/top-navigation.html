@@ -1,9 +1,18 @@
-<li class="xn-openable" th:if="${employee_menu}">
+<li class="xn-openable" th:if="${employee_settings}">
     <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Employee Settings</span></a>
     <ul class="animated zoomIn top-menu">
         <li><a href="#"><span class="fa fa-cog"></span>Employment settings</a></li>
         <li><a href="#"><span class="fa fa-clock-o"></span>Timesheets</a></li>
         <li><a href="#"><span class="fa fa-calendar-o"></span>Holidays / Leaves</a></li>
         <li><a href="#"><span class="fa fa-money"></span>Payroll</a></li>
+    </ul>
+</li>
+<li class="xn-openable" th:if="${personal_settings}" th:classappend="${personal_settings}">
+    <a href="#"><span class="fa fa-user"></span> <span class="xn-text">Personal Settings</span></a>
+    <ul class="animated zoomIn top-menu">
+        <li th:class="${personal_selected}"><a th:href="@{${#admin.employee_personal_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-info-circle"></span>Personal Details</a></li>
+        <li th:class="${address_selected}"><a th:href="@{${#admin.employee_address_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-address-book"></span>Address</a></li>
+        <li th:class="${dependent_selected}"><a th:href="@{${#admin.employee_dependent_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-user-circle"></span>Family members</a></li>
+        <li th:class="${contact_selected}"><a th:href="@{${#admin.employee_contact_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-id-card"></span>Contacts</a></li>
     </ul>
 </li>

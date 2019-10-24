@@ -2,6 +2,37 @@ $(document).ready(function(){
 
     var html_click_avail = true;
 
+    var more_link = false;
+
+    if($(window).width() > 1400) {
+        $('#body').addClass('page-container-boxed');
+        $('#body').removeClass('page-container');
+    }
+    else {
+        $('#body').addClass('page-container');
+        $('#body').removeClass('page-container-boxed');
+    }
+
+    $("a.more_link").on("click", function() {
+        if(more_link){
+            $(".more").addClass('display_none');
+            $(".more").removeClass('display_block');
+            more_link = false;
+        } else {
+            $(".more").removeClass('display_none');
+            $(".more").addClass('display_block');
+            more_link = true;
+        }
+
+    });
+
+    /* Company select */
+    $("#selected_company").on("change",function(){
+        $.get("/employee/company/change/"+$("#selected_company").val()).always(function (data) {
+            window.location.href = data.responseText;
+        })
+    });
+
     $("html").on("click", function(){
         if(html_click_avail)
             $(".x-navigation-horizontal li,.x-navigation-minimized li").removeClass('active');

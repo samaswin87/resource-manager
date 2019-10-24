@@ -29,7 +29,7 @@ public enum MaritalStatus {
 				return status;
 			}
 		}
-		return null;
+		return MaritalStatus.SINGLE;
 	}
 	
 	public static List<MaritalStatus> getStatuses() {

@@ -7,7 +7,7 @@
 	<!-- END TOGGLE NAVIGATION -->
 	<!-- COMPANY SEARCH -->
 	<li class="xn-icon-company">
-		<select>
+		<select id="selected_company">
 			<option th:each="company : ${session.companies}" th:value="${company.getId()}" th:text="${company.getName()}" th:selected="${session.currentCompany.getId() == company.getId()}"></option>
 		</select>
   </li>

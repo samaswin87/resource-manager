@@ -1,5 +1,8 @@
 package com.resource.common.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum RelationshipType {
 
 	SPOUSE(1, "Spouse"),
@@ -80,6 +83,10 @@ public enum RelationshipType {
 				return relation;
 			}
 		}
-		return null;
+		return RelationshipType.OTHER;
 	}
+	
+	public static List<RelationshipType> getRelationshipTypes() {
+   	 	return Arrays.asList(RelationshipType.values());
+    }
 }

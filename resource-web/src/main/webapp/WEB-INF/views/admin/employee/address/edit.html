@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Edit Address</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span> Employee: <label th:text="${employee.getName()}"></label></h3>
+            <a th:href="@{${#admin.employee_show.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to show</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <th:block th:include="common/errors" th:if="${not #lists.isEmpty(errors)}"></th:block>
+                    <form class="form-horizontal" id="fixed-footer" th:action="@{${#admin.employee_address_edit.path()}(id=${employee.getEmployeeCode()}, addressId=${address.getId()})}" th:object="${address}" method="post">
+                        <!-- START STRIPED TABLE -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-table">
+                                <h3 class="panel-title" th:text="${address.getAddressTypeName()}"></h3>
+                                <button class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</button>
+                            </div>
+                            <div class="panel-body">
+                                <table class="panel-view">
+                                    <tbody>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td><textarea th:field="*{details}" th:value="${address.getDetails()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address Type</td>
+                                            <td>
+                                                <select class="form-control select" th:field="*{addressType}">
+                                                    <option th:each="addressTypeOption : ${T(com.resource.common.constants.AddressType).getAddressTypes()}" th:value="${addressTypeOption.getId()}" th:text="${addressTypeOption.getName()}" th:th:selected="${addressTypeOption.getId() == address.getAddressType()}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fa fa-flag fa-span"></span>Country</td>
+                                            <td>
+                                                <select class="form-control select" th:field="*{country}">
+                                                    <option th:each="countryOption : ${T(com.resource.common.constants.Country).getCountries()}" th:value="${countryOption.getId()}" th:text="${countryOption.getName()}" th:selected="${countryOption.getId() == address.getCountry()}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>State</td>
+                                            <td>
+                                                <select class="form-control select" th:field="*{state}">
+                                                    <option th:each="stateOption : ${T(com.resource.common.constants.State).getStates()}" th:value="${stateOption.getId()}" th:text="${stateOption.getName()}" th:th:selected="${stateOption.getId() == address.getState()}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>City</td>
+                                            <td>
+                                                <select class="form-control select" th:field="*{city}">
+                                                    <option th:each="cityOption : ${T(com.resource.common.constants.City).getCities()}" th:value="${cityOption.getId()}" th:text="${cityOption.getName()}" th:selected="${cityOption.getId() == address.getCity()}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fa fa-map-pin fa-lg fa-span"></span>Postal Code</td>
+                                            <td><input type="text" th:field="*{postalCode}" th:value="${address.getPostalCode()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fa fa-calendar-check-o fa-span"></span>Started On</td>
+                                            <td><input type="text" th:field="*{startedOn}" th:value="${address.getStartedOn()}" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fa fa-calendar-check-o fa-span"></span>Ended On</td>
+                                            <td><input type="text" th:field="*{endedOn}" th:value="${address.getEndedOn()}" class="form-control" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END STRIPED TABLE -->
+                        <div class="panel-footer">
+                            <button class="btn btn-primary">Save</button>
+                            <a class="btn btn-default" th:href="@{${#admin.employee_address_show.path()}(id=${employee.getEmployeeCode()})}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <th:block layout:fragment="script">
+        <script>
+        $(document).ready(function() {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            $("#startedOn, #endedOn").datepicker({
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                autoclose: true,
+            });
+        });
+        </script>
+    </th:block>
+</body>
+
+</html>

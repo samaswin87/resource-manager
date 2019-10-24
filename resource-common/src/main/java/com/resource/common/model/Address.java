@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.resource.common.constants.AddressType;
+import com.resource.common.constants.City;
 import com.resource.common.constants.Country;
 import com.resource.common.constants.State;
 
@@ -54,9 +55,9 @@ public class Address extends Auditable<String> implements Serializable {
 	private String details;
 
 	@Column(name="address_type", nullable=false)
-	private Byte addressType;
+	private Integer addressType;
 
-	private String city;
+	private int city;
 
 	private int country;
 
@@ -76,7 +77,7 @@ public class Address extends Auditable<String> implements Serializable {
 	private int state;
 
 	@Column(name="status_id", nullable=false)
-	private byte statusId;
+	private Integer statusId;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id", nullable=false)
@@ -92,7 +93,8 @@ public class Address extends Auditable<String> implements Serializable {
 	private String otherCity;
 	
 	public String getAddressTypeName() {
-		return AddressType.getAddressType(this.getAddressType().intValue()).getName();
+		int addressType = this.getAddressType() == null ? 0 : this.getAddressType().intValue();
+		return AddressType.getAddressType(addressType).getName();
 	}
 
 	public String getCountryName() {
@@ -101,5 +103,9 @@ public class Address extends Auditable<String> implements Serializable {
 	
 	public String getStateName() {
 		return State.getState(this.state).getName();
+	}
+	
+	public String getCityName() {
+		return City.getCity(this.city).getName();
 	}
 }

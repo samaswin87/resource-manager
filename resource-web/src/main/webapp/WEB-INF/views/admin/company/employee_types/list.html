@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employee types</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Companies</a></li>
+            <li class="active">Employee types</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Employee type settings</h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-message">
+                        <span class="fa fa-info-circle hint_info_icon"></span> Employees are grouped into <q>Employee types</q>
+                        <a class="more_link">(learn more)</a>
+                        <div class="more display_none">
+                            <p>You can set up any number of employee types, for example:</p>
+                            <ol>
+                                <li>Full day full-time employees (set with 8 working hours per day).</li>
+                                <li>Short day full time employees (set with 6 working hours per day).</li>
+                                <li>Flex time employees</li>
+                            </ol>
+                            <p>When you add employees to Company, you will set their employee type.</p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-buttons">
+                        <div class="panel-body">
+                            <div class="col-md-2">
+                                <a th:href="${#admin.company_add.path()}" class="btn btn-success btn-block"> <span class="fa fa-plus"></span> Add new</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body panel-body-table">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-actions">
+                                    <thead>
+                                        <tr>
+                                            <th width="100">Name</th>
+                                            <th width="100">code</th>
+                                            <th width="100">No of employees</th>
+                                            <th width="100">Settings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="employeeType: ${employeeTypes}">
+                                            <td th:text="${employeeType.getName()}"></td>
+                                            <td th:text="${employeeType.getCode()}"></td>
+                                            <td>
+                                                <span th:text="${employeeType.getNoOfEmployees()}"></span>
+                                                (<a href="#">view</a>)
+                                            </td>
+                                            <td><a href="#">HR</a> | <a href="#">Work Time</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+
+</html>

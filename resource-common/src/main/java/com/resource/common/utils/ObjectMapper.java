@@ -40,7 +40,7 @@ public class ObjectMapper {
 		return (T) actual;
 	}
 
-	public void setField(String... fields) {
+	public void setExceptFields(String... fields) {
 		this.exceptFields = fields;
 	}
 }

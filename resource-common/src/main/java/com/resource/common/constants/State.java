@@ -61,10 +61,10 @@ public enum State {
 				return state;
 			}
 		}
-		return null;
+		return State.TAMIL_NADU;
 	}
 	
-	public static List<State> geStates() {
+	public static List<State> getStates() {
    	 	return Arrays.asList(State.values());
     }
 }

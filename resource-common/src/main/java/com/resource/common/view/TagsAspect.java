@@ -15,9 +15,21 @@ import org.springframework.ui.ModelMap;
 @Component
 public class TagsAspect {
 
-	@Before(value = "@annotation(EnableTags) && args(map,..)") // aspect method who have the annotation
+	@Before("execution(* com.employee.resource.*.*Controller*.*(..)) && args(map,..)")
 	public void handle(JoinPoint joinPoint, ModelMap map) throws Exception {
-		EnableTags tags = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(EnableTags.class);
-		Arrays.asList(tags.value()).forEach(t -> map.addAttribute(t, true));
-	 }
+		Class clazz = joinPoint.getTarget().getClass();
+		EnableTags tags = (EnableTags) clazz.getDeclaredAnnotation(EnableTags.class);
+		if (tags != null)
+		{
+			Arrays.asList(tags.value()).forEach(t -> map.addAttribute(t, true));
+			map.addAttribute(tags.selected(), "selected");
+		}
+	}
+	
+	@Before(value = "@annotation(SelectedTab) && args(map,..)") // aspect method who have the annotation
+	public void handleTabs(JoinPoint joinPoint, ModelMap map) throws Exception {
+		SelectedTab tab = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(SelectedTab.class);
+		map.addAttribute(tab.value()+"_selected", "selected");
+	}
+	
 }

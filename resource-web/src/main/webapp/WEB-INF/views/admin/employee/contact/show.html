@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Employee</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3><span class="fa fa-user"></span>Emergency contact details</h3>
+            <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                    <!-- START STRIPED TABLE -->
+                    <div class="alert alert-error" role="alert" th:if="${contacts.empty}">
+                        <strong>Note</strong> You have not added any contacts details.
+                    </div>
+                    <th:block th:each="contact : ${contacts}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-table">
+                            <h3 class="panel-title" th:text="'Contact - ' + ${contact.getRelationshipName()}"></h3>
+                            <a th:href="@{${#admin.employee_contact_edit.path()}(id=${employee.getEmployeeCode()}, contactId=${contact.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td th:text="${contact.getName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td th:text="${contact.getFirstName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td th:text="${contact.getLastName()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td th:text="${contact.getAddress()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-envelope fa-span"></span>Email</td>
+                                        <td th:text="${contact.getEmail()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-mobile-phone fa-lg fa-span"></span>Mobile Number</td>
+                                        <td th:text="${contact.getMobileNumber()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="fa fa-phone fa-lg fa-span"></span>Phone Number</td>
+                                        <td th:text="${contact.getPhoneNumber()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </th:block>
+                    <!-- END STRIPED TABLE -->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+</html>
