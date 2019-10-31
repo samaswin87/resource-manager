@@ -30,9 +30,9 @@
                     <th:block th:include="common/errors" th:if="${not #lists.isEmpty(errors)}"></th:block>
                     <form class="form-horizontal" id="fixed-footer" th:action="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" th:object="${employee}" method="post">
                         <!-- START STRIPED TABLE -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-page-content">
                             <div class="panel-heading panel-table">
-                                <h3 class="panel-title">Employee details</h3>
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Employee details</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="panel-view">
@@ -57,9 +57,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-page-content">
                             <div class="panel-heading panel-table">
-                                <h3 class="panel-title">Personal details</h3>
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Personal details</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="panel-view">
@@ -112,9 +112,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-page-content">
                             <div class="panel-heading panel-table">
-                                <h3 class="panel-title">Contacts</h3>
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Contacts</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="panel-view">
@@ -140,9 +140,9 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-page-content">
                             <div class="panel-heading panel-table">
-                                <h3 class="panel-title">Nationality</h3>
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Nationality</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="panel-view">
@@ -174,6 +174,40 @@
         </div>
         <!-- END PAGE CONTENT WRAPPER -->
     </div>
+    <th:block layout:fragment="message_box">
+        <!-- START MODALS -->
+        <div class="modal fade" id="add_shift" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+            <div class="modal-dialog custom-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Shift</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span class="fa fa-times-circle" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <form id="shift_form" th:action="@{${#admin.employee_type_work_time.path()}(id=${employeeType.getId()})}" method="post">
+                                <input type="hidden" name="_method" value="put">
+                                <table class="panel-view">
+                                    <tbody>
+                                        <tr>
+                                            <td><label class="control-label">Style name</label></td>
+                                            <td><input type="name" name="name"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add" class="btn btn-info" data-dismiss="modal">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- EOF MODALS -->
+    </th:block>
     <th:block layout:fragment="script">
         <script>
             $(document).ready(function() {
@@ -183,6 +217,17 @@
                     format: 'yyyy-mm-dd',
                     todayHighlight: true,
                     autoclose: true,
+                });
+
+                $("#shift_event").on("click", function(event) {
+                    event.preventDefault();
+                    $('#add_shift').modal('show');
+                    return false;
+                });
+
+                $("#add").on("click", function(event) {
+                    event.preventDefault();
+                    $("#shift_form").submit();
                 });
             });
         </script>

@@ -19,6 +19,9 @@ public enum AdminPath {
 	
 	employee_contact_show("/admin/employee/{id}/contact/show"),
 	employee_contact_edit("/admin/employee/{id}/contact/{contactId}/edit"),
+	
+	employee_employment_show("/admin/employee/{id}/employment/show"),
+	employee_employment_edit("/admin/employee/{id}/employment/{relationshipId}/edit"),
 
 	company_list("/admin/companies"), 
 	company_add("/admin/company/new"),
@@ -26,12 +29,13 @@ public enum AdminPath {
 	company_edit("/admin/company/{id}/edit"),
 	company_delete("/admin/company/{id}/delete"),
 	
-	
 	employee_type_list("/admin/company/employee_types/list"),
 	employee_type_add("/admin/company/employee_types/new"),
-	employee_type_hr("/admin/company/employee_types/hr_settings"),
-	employee_type_work_time("/admin/company/employee_types/work_time_settings"),
-	employee_type_employees("/admin/company/employee_types/employees");
+	employee_type_hr("/admin/company/employee_types/{id}/hr_settings"),
+	employee_type_work_time("/admin/company/employee_types/{id}/work_time_settings"),
+	employee_type_employees("/admin/company/employee_types/employees"),
+	employee_type_work_time_edit("/admin/company/employee_types/{id}/work_time_settings/edit"),
+	employee_type_hr_edit("/admin/company/employee_types/{id}/hr_settings/edit");
 
 	AdminPath(String path) {
 		this.path = path;
@@ -56,7 +60,9 @@ public enum AdminPath {
 	}
 
 	public String redirect() {
-		return "redirect:" + path.replaceAll("show", "");
+		return "redirect:" + path
+				.replaceAll("show", "")
+				.replaceAll("list", "");
 	}
 
 }

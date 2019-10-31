@@ -28,9 +28,9 @@
                 <div class="col-md-12">
                     <th:block th:include="profile/employee"></th:block>
                     <!-- START STRIPED TABLE -->
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-page-content">
                         <div class="panel-heading panel-table">
-                            <h3 class="panel-title">Employee details</h3>
+                            <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Employee details</h3>
                             <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
                         </div>
                         <div class="panel-body">
@@ -60,9 +60,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-page-content">
                         <div class="panel-heading panel-table">
-                            <h3 class="panel-title">Personal details</h3>
+                            <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Personal details</h3>
                             <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
                         </div>
                         <div class="panel-body">
@@ -108,9 +108,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-page-content">
                         <div class="panel-heading panel-table">
-                            <h3 class="panel-title">Contacts</h3>
+                            <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Contacts</h3>
                             <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
                         </div>
                         <div class="panel-body">
@@ -133,9 +133,9 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-page-content">
                         <div class="panel-heading panel-table">
-                            <h3 class="panel-title">Nationality</h3>
+                            <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Nationality</h3>
                             <a th:href="@{${#admin.employee_personal_edit.path()}(id=${employee.getEmployeeCode()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
                         </div>
                         <div class="panel-body">

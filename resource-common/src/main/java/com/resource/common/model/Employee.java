@@ -155,4 +155,8 @@ public class Employee extends Auditable<String> implements Serializable {
 		return this.getEmergencyContacts().stream().filter(a -> a.getId() == id).findFirst().orElse(null);
 	}
 	
+	public EmploymentRelationship getCurrentRelationship() {
+		return getEmploymentRelationships().stream().filter(a -> a.getCurrent()).findFirst().orElse(null);
+	}
+	
 }

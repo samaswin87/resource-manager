@@ -42,12 +42,12 @@
                     <div class="panel panel-buttons">
                         <div class="panel-body">
                             <div class="col-md-2">
-                                <a th:href="${#admin.company_add.path()}" class="btn btn-success btn-block"> <span class="fa fa-plus"></span> Add new</a>
+                                <a th:href="${#admin.employee_type_add.path()}" class="btn btn-success btn-block"> <span class="fa fa-plus"></span> Add new</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-border">
                         <div class="panel-body panel-body-table">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-actions">
@@ -67,7 +67,10 @@
                                                 <span th:text="${employeeType.getNoOfEmployees()}"></span>
                                                 (<a href="#">view</a>)
                                             </td>
-                                            <td><a href="#">HR</a> | <a href="#">Work Time</a></td>
+                                            <td>
+                                                <a th:href="@{${#admin.employee_type_hr.path()}(id=${employeeType.getId()})}">HR</a> |
+                                                <a th:href="@{${#admin.employee_type_work_time.path()}(id=${employeeType.getId()})}">Work Time</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

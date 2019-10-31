@@ -37,7 +37,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@ToString(exclude = {"companies", "employees", "parent", "employeeTypes"})
+@ToString(exclude = {"companies", "employees", "parent", "employeeTypes", "shiftTypes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name="Company.findAll", query="SELECT c FROM Company c")
@@ -85,6 +85,9 @@ public class Company extends Auditable<String> implements Serializable {
 
 	@OneToMany(mappedBy="company")
 	private List<EmployeeType> employeeTypes;
+	
+	@OneToMany(mappedBy="company", cascade = CascadeType.ALL)
+	private List<ShiftType> shiftTypes;
 	
 	public Company(Integer id, String name) {
 		this.id = id;

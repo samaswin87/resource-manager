@@ -4,6 +4,12 @@ $(document).ready(function(){
 
     var more_link = false;
 
+    $('[data-toggle="popover"]').popover();
+
+    $(".popover-hover").popover({
+        trigger : 'hover'
+    });
+
     if($(window).width() > 1400) {
         $('#body').addClass('page-container-boxed');
         $('#body').removeClass('page-container');

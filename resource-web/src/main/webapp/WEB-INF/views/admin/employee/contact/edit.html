@@ -30,9 +30,9 @@
                     <th:block th:include="common/errors" th:if="${not #lists.isEmpty(errors)}"></th:block>
                     <form class="form-horizontal" id="fixed-footer" th:action="@{${#admin.employee_contact_edit.path()}(id=${employee.getEmployeeCode()}, contactId=${contact.getId()})}" th:object="${contact}" method="post">
                         <!-- START STRIPED TABLE -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-page-content">
                             <div class="panel-heading panel-table">
-                                <h3 class="panel-title" th:text="${contact.getRelationshipName()}"></h3>
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"></span> <span th:text="${contact.getRelationshipName()}"></span></h3>
                             </div>
                             <div class="panel-body">
                                 <table class="panel-view">

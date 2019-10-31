@@ -15,6 +15,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.resource.common.decorator.HtmlElementsDialect;
 import com.resource.common.routes.AdminRoutesDialect;
 import com.resource.common.routes.HomeRoutesDialect;
 
@@ -50,6 +51,7 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
 		engine.addDialect(new LayoutDialect());
 		engine.addDialect(new AdminRoutesDialect());
 		engine.addDialect(new HomeRoutesDialect());
+		engine.addDialect(new HtmlElementsDialect());
 		return engine;
 	}
 

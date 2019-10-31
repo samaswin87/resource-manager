@@ -18,7 +18,7 @@
         <!-- END BREADCRUMB -->
         <!-- PAGE TITLE -->
         <div class="page-title">
-            <h3><span class="fa fa-user"></span>Emergency contact details</h3>
+            <h3><span class="fa fa-user"></span> Employment settings</h3>
             <a th:href="${#admin.employee_list.path()}" class="btn btn-primary return-back"><span class="glyphicon glyphicon-align-justify"></span> Return to list</a>
         </div>
         <!-- END PAGE TITLE -->
@@ -28,51 +28,42 @@
                 <div class="col-md-12">
                     <th:block th:include="profile/employee"></th:block>
                     <!-- START STRIPED TABLE -->
-                    <div class="alert alert-error" role="alert" th:if="${contacts.empty}">
-                        <strong>Note</strong> You have not added any contacts details.
-                    </div>
-                    <th:block th:each="contact : ${contacts}">
                     <div class="panel panel-default panel-page-content">
                         <div class="panel-heading panel-table">
-                            <h3 class="panel-title"><span class="fa fa-hand-o-right"></span> <span th:text="'Contact - ' + ${contact.getRelationshipName()}"></span></h3>
-                            <a th:href="@{${#admin.employee_contact_edit.path()}(id=${employee.getEmployeeCode()}, contactId=${contact.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                            <h3 class="panel-title"><span class="fa fa-hand-o-right"></span> Employment type</h3>
+                            <a th:href="@{${#admin.employee_employment_edit.path()}(id=${employee.getEmployeeCode()}, relationshipId=${relationship.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
                         </div>
                         <div class="panel-body">
                             <table class="panel-view">
                                 <tbody>
                                     <tr>
-                                        <td>Name</td>
-                                        <td th:text="${contact.getName()}"></td>
+                                        <td>Employee Id</td>
+                                        <td th:text="${employee.getEmployeeCode()}"></td>
                                     </tr>
                                     <tr>
-                                        <td>First Name</td>
-                                        <td th:text="${contact.getFirstName()}"></td>
+                                        <td>Employement type</td>
+                                        <td th:text="${employeeType.getName()}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Last Name</td>
-                                        <td th:text="${contact.getLastName()}"></td>
+                                        <td>Work type</td>
+                                        <td th:text="${employeeType.getWorkTypeName()}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Address</td>
-                                        <td th:text="${contact.getAddress()}"></td>
+                                        <td>Started on</td>
+                                        <td th:text="${relationship.displayStartedOn()}"></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="fa fa-envelope fa-span"></span>Email</td>
-                                        <td th:text="${contact.getEmail()}"></td>
+                                        <td>Probation period ended on</td>
+                                        <td th:text="${relationship.displayProbationPeriodEndedOn()}"></td>
                                     </tr>
-                                    <tr>
-                                        <td><span class="fa fa-mobile-phone fa-lg fa-span"></span>Mobile Number</td>
-                                        <td th:text="${contact.getMobileNumber()}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="fa fa-phone fa-lg fa-span"></span>Phone Number</td>
-                                        <td th:text="${contact.getPhoneNumber()}"></td>
+                                    <tr th:if="${relationship.getEndedOn() != null}">
+                                        <td>Ended on</td>
+                                        <td th:text="${relationship.displayEndedOn()}"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    </th:block>
                     <!-- END STRIPED TABLE -->
                 </div>
             </div>
