@@ -47,7 +47,8 @@ import lombok.ToString;
 @ToString(exclude = {
 		"addresses", "certifications", "dependents", "company",
 		"educations", "emergencyContacts", "employmentRelationships",
-		"experiences", "personalDetail", "profile", "users"
+		"experiences", "personalDetail", "profile", "users", "teamLeaders",
+		"teamMembers"
 })
 @AllArgsConstructor
 @NoArgsConstructor
@@ -122,6 +123,13 @@ public class Employee extends Auditable<String> implements Serializable {
 
 	@OneToMany(mappedBy="employee")
 	private List<User> users;
+	
+	@OneToMany(mappedBy="employee")
+	private List<TeamLeader> teamLeaders;
+
+	@OneToMany(mappedBy="employee")
+	private List<TeamMember> teamMembers;
+
 
 	public String fullName() {
 		return this.firstName +" "+ this.lastName;

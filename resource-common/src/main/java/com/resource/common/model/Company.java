@@ -28,16 +28,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-/**
- * The persistent class for the companies database table.
- *
- */
 @Entity
 @Table(name="companies")
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@ToString(exclude = {"companies", "employees", "parent", "employeeTypes", "shiftTypes"})
+@ToString(exclude = {
+		"companies", "employees", "parent", "employeeTypes", 
+		"shiftTypes", "teams"
+		})
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name="Company.findAll", query="SELECT c FROM Company c")
@@ -88,6 +87,9 @@ public class Company extends Auditable<String> implements Serializable {
 	
 	@OneToMany(mappedBy="company", cascade = CascadeType.ALL)
 	private List<ShiftType> shiftTypes;
+	
+	@OneToMany(mappedBy="company", cascade = CascadeType.ALL)
+	private List<Team> teams;
 	
 	public Company(Integer id, String name) {
 		this.id = id;

@@ -8898,3 +8898,18 @@ select.time-diff{
 .panel-footer.edit {
     padding: 0px 0px;
 }
+
+.fa_team {
+    color: #1caf9a
+}
+
+.team-members {
+    background: #b5d8f5;
+    border-radius: 0px;
+}
+
+.blue-button {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: #ffffff;
+}

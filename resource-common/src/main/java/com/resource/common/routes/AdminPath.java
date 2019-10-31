@@ -35,7 +35,11 @@ public enum AdminPath {
 	employee_type_work_time("/admin/company/employee_types/{id}/work_time_settings"),
 	employee_type_employees("/admin/company/employee_types/employees"),
 	employee_type_work_time_edit("/admin/company/employee_types/{id}/work_time_settings/edit"),
-	employee_type_hr_edit("/admin/company/employee_types/{id}/hr_settings/edit");
+	employee_type_hr_edit("/admin/company/employee_types/{id}/hr_settings/edit"),
+	
+	team_list("/admin/company/teams");
+	
+	
 
 	AdminPath(String path) {
 		this.path = path;

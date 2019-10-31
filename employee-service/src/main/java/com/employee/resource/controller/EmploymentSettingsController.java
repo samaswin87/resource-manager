@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.employee.resource.service.IEmployeeService;
+import com.employee.resource.service.IEmploymentRelationshipService;
 import com.resource.common.controller.AdminController;
 import com.resource.common.model.Employee;
 import com.resource.common.model.EmploymentRelationship;
@@ -31,6 +32,9 @@ public class EmploymentSettingsController extends AdminController {
 	@Autowired
 	private IEmployeeTypeService typeService;
 	
+	@Autowired
+	private IEmploymentRelationshipService relationshipService;
+	
 	@SelectedTab("employment")
 	@GetMapping(value = "/employee/{id}/employment")
 	public String show(ModelMap map, @PathVariable("id") String code) {
@@ -42,7 +46,8 @@ public class EmploymentSettingsController extends AdminController {
 			map.addAttribute("employeeProfile", new Profile());
 		
 		map.addAttribute("relationship", employee.getCurrentRelationship());
-		map.addAttribute("employeeType", employee.getCurrentRelationship().getEmployeeType());
+		if (employee.getCurrentRelationship() != null)
+			map.addAttribute("employeeType", employee.getCurrentRelationship().getEmployeeType());
 		return AdminPath.employee_employment_show.partial();
 	}
 	
@@ -63,7 +68,9 @@ public class EmploymentSettingsController extends AdminController {
 			map = updateAttributes(employee, map);
 			return "admin/employee/employment/edit";
 		}
-		
+		relationship.setCurrent(true);
+		relationship.setEmployee(employee);
+		relationshipService.create(relationship);
 		return AdminPath.employee_employment_show.redirect();
 	}
 	

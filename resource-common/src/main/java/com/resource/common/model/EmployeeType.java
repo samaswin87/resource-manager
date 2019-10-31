@@ -1,9 +1,6 @@
 package com.resource.common.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,10 +30,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-/**
- * The persistent class for the employee_types database table.
- *
- */
 @Entity
 @Table(name="employee_types")
 @Getter

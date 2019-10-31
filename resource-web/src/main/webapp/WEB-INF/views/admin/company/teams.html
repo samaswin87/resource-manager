@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Companies</title>
+
+<head>
+    <th:block layout:fragment="stylesheet">
+        <link rel="stylesheet" type="text/css" id="theme" th:href="@{/css/bootstrap-treeview.css}" />
+    </th:block>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Companies</a></li>
+            <li class="active">Teams</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Company teams</h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <!-- START RESPONSIVE TABLES -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel-body">
+                        <div id="tree"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-body">
+                        <!-- START STRIPED TABLE -->
+                        <div class="panel panel-default panel-page-content">
+                            <div class="panel-heading panel-table">
+                                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> Team 1</h3>
+                                <a href="#" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+                            </div>
+                            <div class="panel-body">
+                                <a href="#" class="btn blue-button"><span class="fa fa-plus"></span>Add members</a>
+                                <a href="#" class="btn blue-button"><span class="fa fa-plus"></span>Add leaders</a>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-body team-members">
+                                    <div class="panel-title">Team leaders</div>
+                                    <a href="#" class="btn blue-button pull-right"><span class="fa fa-users"></span>Modify leaders</a>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-striped table-actions">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>From</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>2019-01-01</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name 1</td>
+                                                <td>2019-01-01</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-body team-members">
+                                    <div class="panel-title">Team members</div>
+                                    <a href="#" class="btn blue-button pull-right"><span class="fa fa-users"></span>Modify members</a>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-striped table-actions">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>From</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>2019-01-01</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name 1</td>
+                                                <td>2019-01-01</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END STRIPED TABLE -->
+                    </div>
+                </div>
+            </div>
+            <!-- END RESPONSIVE TABLES -->
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/bootstrap-treeview.js}"></script>
+    <script type="text/javascript">
+        var tree = [{
+                text: "Team 1",
+                icon: 'fa fa-users fa_team',
+                tags: ['1'],
+                href: "test.com",
+                state: { selected: true },
+                nodes: [{
+                        text: "Team 1-1",
+                        icon: 'fa fa-users fa_team',
+                        tags: ['0'],
+                        nodes: [{
+                                text: "Team 1-1-1",
+                                tags: ['4'],
+                                icon: 'fa fa-users fa_team',
+                            },
+                            {
+                                text: "Team 1-1-2",
+                                tags: ['14'],
+                                icon: 'fa fa-users fa_team',
+                            }
+                        ]
+                    },
+                    {
+                        text: "Team 1-2",
+                        tags: ['0'],
+                        icon: 'fa fa-users fa_team',
+                    }
+                ]
+            },
+            {
+                text: "Team 2",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 3",
+                tags: ['1'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 4",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 5",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 6",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 7",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 8",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 9",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 10",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 11",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 12",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 13",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 14",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            },
+            {
+                text: "Team 15",
+                tags: ['3'],
+                icon: 'fa fa-users fa_team',
+            }
+        ];
+        var options = {
+            bootstrap2: false,
+            showTags: true,
+            levels: 5,
+            data: tree,
+            enableLinks: true,
+            expandIcon: 'fa fa-caret-square-o-right fa-lg',
+            collapseIcon: 'fa fa-caret-square-o-down fa-lg',
+            emptyIcon: 'fa fa-arrow-circle-o-right fa-lg',
+            collapseAll: true,
+        };
+        $(document).ready(function() {
+            $('#tree').treeview(options);
+        });
+    </script>
+</th:block>
+
+</html>
