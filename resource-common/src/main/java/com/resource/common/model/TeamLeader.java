@@ -64,5 +64,12 @@ public class TeamLeader extends Auditable<String> implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id", nullable=false)
 	private Employee employee;
-
+	
+	public String displayEndDate() {
+		return this.getEndDate() == null ? "Not set" : this.getEndDate().toString();
+	}
+	
+	public String displayName() {
+		return this.employee.getName();
+	}
 }

@@ -2548,10 +2548,12 @@ ul.panel-controls>li>.dropdown-menu:before {
     color: #22262e;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
-    border-radius: 12px;
-    border-width: 2px;
-    padding: 2px 10px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 4px 5px 1px 7px;
     font-weight: 600;
+    color: #ffffff;
+    background-color: #1a98e1;
 }
 
 .btn.btn-rounded.btn-default:hover,
@@ -8912,4 +8914,48 @@ select.time-diff{
     background-color: #337ab7;
     border-color: #337ab7;
     color: #ffffff;
+    border-radius: 4px;
+}
+
+.team-profile {
+    width: 100%;
+    float: left;
+    padding-bottom: 10px;
+}
+
+label.team-detail {
+    display: block;
+    color: #777777;
+}
+
+label.team-caption {
+    color: #a09e9e;
+    display: block;
+    float: left;
+    padding-right: 10px;
+}
+.description {
+    height: 50px;
+}
+
+.button-header {
+    padding-bottom: 10px;
+    width: 14%;
+    padding-left: 0px !important;
+}
+
+td.center {
+    text-align: center;
+}
+
+th.center {
+    text-align: center;
+}
+
+.fa-green {
+    color: #76ad39;
+}
+
+.fa-red {
+    color: red;
 }

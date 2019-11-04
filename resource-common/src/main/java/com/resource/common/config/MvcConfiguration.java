@@ -26,7 +26,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAware {
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
-			"classpath:/resources/", "classpath:/static/", "classpath:/public/" };
+			"classpath:/resources/", "classpath:/static/", "classpath:/public/"};
 
 	private ApplicationContext applicationContext;
 

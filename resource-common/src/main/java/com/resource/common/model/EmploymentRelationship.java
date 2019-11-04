@@ -52,7 +52,7 @@ public class EmploymentRelationship extends Auditable<String> implements Seriali
 	@Column(nullable=false)
 	private Boolean current;
 
-	@NotNull(message="Started on must not be null")
+	@NotNull(message="Started on must not be empty")
 	@Temporal(TemporalType.DATE)
 	@Column(name="started_on", nullable=false)
 	private Date startedOn;

@@ -1,5 +1,8 @@
 package com.company.resource.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Team {
-	
-	private String text;
-	private String icon;
-	private String[] tags;
-	private String href;
-	private Boolean state;
-	private Team[] nodes;
-
+@JsonInclude(Include.NON_NULL)
+public class State {
+	private boolean selected;
 }

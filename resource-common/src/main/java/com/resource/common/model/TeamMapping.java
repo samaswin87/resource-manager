@@ -23,16 +23,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Entity
+@Table(name="team_mappings")
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@Table(name="team_members")
-@NamedQuery(name="TeamMember.findAll", query="SELECT t FROM TeamMember t")
-@ToString(exclude = {"team", "employee"})
+@NamedQuery(name="TeamMapping.findAll", query="SELECT t FROM TeamMapping t")
+@ToString(exclude = {"team", "parentTeam"})
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamMember extends Auditable<String> implements Serializable {
+public class TeamMapping extends Auditable<String> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,41 +41,23 @@ public class TeamMember extends Auditable<String> implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	private Boolean active;
+	@Column(name="no_of_employees", columnDefinition = "integer default 0")
+	private Integer noOfEmployees;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="end_date")
 	private Date endDate;
 
-	@Column(name="is_approver")
-	private Boolean isApprover;
-
-	@Column(name="is_leader")
-	private Boolean isLeader;
-
-	@Column(name="is_primary")
-	private Boolean isPrimary;
-
 	@Temporal(TemporalType.DATE)
 	@Column(name="start_date", nullable=false)
 	private Date startDate;
-
-	@Column(length=120)
-	private String title;
-
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="team_id", nullable=false)
 	private Team team;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="employee_id", nullable=false)
-	private Employee employee;
-	
-	public String displayName() {
-		return this.employee.getName();
-	}
-	
-	public String displayEndDate() {
-		return this.getEndDate() == null ? "Not set" : this.getEndDate().toString();
-	}
+	@JoinColumn(name="parent_team_id", nullable=false)
+	private Team parentTeam;
+
 }

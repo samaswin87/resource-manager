@@ -1,0 +1,80 @@
+<div th:remove="tag">
+    <div class="panel-body">
+        <!-- START STRIPED TABLE -->
+        <div class="panel panel-default panel-page-content">
+            <div class="panel-heading panel-table">
+                <h3 class="panel-title"><span class="fa fa-hand-o-right"> </span> <div th:remove="tag" th:text="${team.getDisplayName()}"></h3>
+                <a th:href="@{${#admin.team_edit.path()}(id=${team.getId()})}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span>Edit</a>
+            </div>
+            <div class="panel-body">
+                <div class="team-profile">
+                    <div class="col-md-6">
+                        <p><label class="team-caption">Name:</label><label class="team-detail" th:text="${team.getName()}"></label></p>
+                        <p><label class="team-caption">From:</label><label class="team-detail" th:text="${team.getStartedOn()}"></label></p>
+                    </div>
+                    <div class="col-md-6 pull-right">
+                        <p><label class="team-caption">Code:</label><label class="team-detail" th:text="${team.getCode()}"></label></p>
+                        <p><label class="team-caption">Upto:</label><label class="team-detail" th:text="${team.displayEndedOn()}"></label></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-body team-members">
+                    <div class="panel-title">Team leaders</div>
+                    <a th:href="@{${#admin.team_members_show.path()}(id=${team.getId()})}" class="btn blue-button pull-right"><span class="fa fa-users"></span>Add / Modify</a>
+                </div>
+                <div class="panel-body" th:if="${leaders.empty}">
+                    <strong>You have not added any leaders / approvers.</strong>
+                </div>
+                <div class="panel-body" th:if="${!leaders.empty}">
+                    <table class="table table-bordered table-striped table-actions">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>From</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="leader : ${leaders}">
+                                <tr>
+                                    <td th:text="${leader.displayName()}"></td>
+                                    <td th:text="${leader.getStartDate()}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-body team-members">
+                    <div class="panel-title">Team members</div>
+                    <a th:href="@{${#admin.team_members_show.path()}(id=${team.getId()})}" class="btn blue-button pull-right"><span class="fa fa-users"></span>Add / Modify</a>
+                </div>
+                <div class="panel-body" th:if="${members.empty}">
+                    <strong>You have not added any members.</strong>
+                </div>
+                <div class="panel-body" th:if="${!members.empty}">
+                    <table class="table table-bordered table-striped table-actions">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>From</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="member : ${members}">
+                                <tr>
+                                    <td th:text="${member.displayName()}"></td>
+                                    <td th:text="${member.getStartDate()}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END STRIPED TABLE -->
+    </div>
+</div>

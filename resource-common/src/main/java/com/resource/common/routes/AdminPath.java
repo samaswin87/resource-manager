@@ -37,7 +37,13 @@ public enum AdminPath {
 	employee_type_work_time_edit("/admin/company/employee_types/{id}/work_time_settings/edit"),
 	employee_type_hr_edit("/admin/company/employee_types/{id}/hr_settings/edit"),
 	
-	team_list("/admin/company/teams");
+	team_list("/admin/company/teams"),
+	team_members("/admin/company/teams/{id}/members"),
+	team_edit("/admin/company/teams/{id}/edit"),
+	team_add("/admin/company/teams/new"),
+	team_members_show("/admin/company/teams/{id}/members/show"),
+	team_members_new("/admin/company/teams/{id}/members/new"),
+	team_leaders_new("/admin/company/teams/{id}/leaders/new");
 	
 	
 
