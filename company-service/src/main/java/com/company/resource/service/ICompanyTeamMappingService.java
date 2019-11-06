@@ -7,4 +7,6 @@ import com.resource.common.model.TeamMapping;
 public interface ICompanyTeamMappingService {
 
 	public TeamMapping findByDate(Date date, Integer teamId);
+	
+	public TeamMapping update(TeamMapping mapping);
 }

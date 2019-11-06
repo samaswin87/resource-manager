@@ -26,7 +26,32 @@
     <div class="page-content-wrap">
 
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="panel panel-default panel-border">
+                      <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="fa fa-search"></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter employee name / code"/>
+                                        <div class="input-group-btn">
+                                            <button id="search_employee" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+           <div class="row" id="team_members">
+          </div>
         </div>
       </div>
     </div>
@@ -36,11 +61,43 @@
       <script>
           $(document).ready(function() {
               var date = new Date();
+              var teamId = [[${team.getId()}]];
               var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
               $("#startedOn, #endedOn").datepicker({
                   format: 'yyyy-mm-dd',
                   todayHighlight: true,
                   autoclose: true,
+              });
+
+              $('#search_employee').on("click", function(e) {
+                $.ajax({
+                    type : "GET",
+                    data: {
+                        name: $('#name').val(),
+                    },
+                    contentType : "application/json; charset=utf-8",
+                    url : "/admin/company/teams/"+teamId+"/search/employees",
+                    dateType : 'json',
+                    cache: false,
+                    success: function (response, status) {
+                        $("#team_members").html(response);
+                        $("div .page-content").css({"height": "100%"});
+                        $('#add_employee').on("click", function(e) {
+                          $.ajax({
+                              type : "POST",
+                              data: JSON.stringify({'employeeCode': $(this).data("employee-id")}),
+                              contentType : "application/json; charset=utf-8",
+                              url : "/admin/company/teams/"+teamId+"/members/add/",
+                              dateType : 'json',
+                              cache: false,
+                              success: function (response, status) {
+                                $.gotoPath(response.replace("{id}",teamId));
+                              }
+                          });
+                        });
+                        return false;
+                    }
+                });
               });
           });
       </script>

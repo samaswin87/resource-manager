@@ -14,4 +14,6 @@ public interface ITeamService {
 	public Team find(Integer id);
 	
 	public Team create(Team team);
+	
+	public Team update(Team team);
 }

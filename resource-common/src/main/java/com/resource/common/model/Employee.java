@@ -54,6 +54,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
 public class Employee extends Auditable<String> implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

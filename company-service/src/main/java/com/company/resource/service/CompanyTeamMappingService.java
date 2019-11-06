@@ -19,4 +19,9 @@ public class CompanyTeamMappingService implements ICompanyTeamMappingService {
 		return repo.findByTeamAndDate(date, teamId).stream().findFirst().orElse(null);
 	}
 
+	@Override
+	public TeamMapping update(TeamMapping mapping) {
+		return repo.save(mapping);
+	}
+
 }

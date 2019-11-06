@@ -25,6 +25,7 @@ public class TeamService extends CompanyBaseService implements ITeamService {
 	
 	@Override
 	public List<Team> list() {
+		System.out.println(company());
 		return repo.findAllByCompany(company());
 	}
 	
@@ -83,6 +84,11 @@ public class TeamService extends CompanyBaseService implements ITeamService {
 
 	@Override
 	public Team create(Team team) {
+		return repo.save(team);
+	}
+
+	@Override
+	public Team update(Team team) {
 		return repo.save(team);
 	}
 }

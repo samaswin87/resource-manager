@@ -32,7 +32,6 @@ spring:
   jpa:
     database: MySQL
     show-sql: true
-    format_sql: true
     hibernate:
       ddl-auto: none
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy

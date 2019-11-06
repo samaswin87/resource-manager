@@ -7,6 +7,8 @@ public enum AdminPath {
 	employee_show("/admin/employee/{id}"),
 	employee_delete("/admin/employee/{id}/delete"),
 	employee_profile("/admin/employee/{id}/profile"),
+	employee_search("/admin/employees/search"),
+	employee_search_list("/admin/employees/search/list"),
 	
 	employee_personal_show("/admin/employee/{id}/personal/show"),
 	employee_personal_edit("/admin/employee/{id}/personal/edit"),
@@ -41,6 +43,7 @@ public enum AdminPath {
 	team_members("/admin/company/teams/{id}/members"),
 	team_edit("/admin/company/teams/{id}/edit"),
 	team_add("/admin/company/teams/new"),
+	team_members_add("/admin/company/teams/{id}/members/add"),
 	team_members_show("/admin/company/teams/{id}/members/show"),
 	team_members_new("/admin/company/teams/{id}/members/new"),
 	team_leaders_new("/admin/company/teams/{id}/leaders/new");

@@ -22,4 +22,9 @@ public class CompanyTeamMemberService extends CompanyBaseService implements ICom
 		return repo.findAll(date, team);
 	}
 
+	@Override
+	public TeamMember add(TeamMember member) {
+		return repo.save(member);
+	}
+
 }
