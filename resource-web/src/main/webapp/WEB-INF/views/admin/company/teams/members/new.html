@@ -1,106 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/fragments/layout}">
-<!-- META SECTION -->
-<title>Companies</title>
-<head>
-</head>
-<body>
-
-  <!-- PAGE CONTENT -->
-  <div class="page-content" layout:fragment="content">
-    <div th:replace="/fragments/navigation :: navigation"></div>
-
-    <!-- START BREADCRUMB -->
-    <ul class="breadcrumb">
-      <li><a href="#">Company</a></li>
-      <li class="active">New Team member</li>
-    </ul>
-    <!-- END BREADCRUMB -->
-    <!-- PAGE TITLE -->
-    <div class="page-title">
-        <h3><span class="fa fa-user"></span> Team members: <th:block th:text="${team.getName()}"></th:block></h3>
-        <a th:href="@{${#admin.team_members_show.path()}(id=${team.getId()})}" class="btn btn-primary return-back"><span class="fa fa-level-up"></span> Return</a>
-    </div>
-    <!-- END PAGE TITLE -->
-    <!-- PAGE CONTENT WRAPPER -->
-    <div class="page-content-wrap">
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="panel panel-default panel-border">
-                      <div class="panel-body">
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <span class="fa fa-search"></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter employee name / code"/>
-                                        <div class="input-group-btn">
-                                            <button id="search_employee" class="btn btn-primary">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="fa fa-search"></span>
                             </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-
-           <div class="row" id="team_members">
-          </div>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter employee name / code" />
+                            <div class="input-group-btn">
+                                <button id="search_employee" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="row" id="team_members">
+        </div>
     </div>
-    <!-- END PAGE CONTENT WRAPPER -->
-  </div>
-  <th:block layout:fragment="script">
-      <script>
-          $(document).ready(function() {
-              var date = new Date();
-              var teamId = [[${team.getId()}]];
-              var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-              $("#startedOn, #endedOn").datepicker({
-                  format: 'yyyy-mm-dd',
-                  todayHighlight: true,
-                  autoclose: true,
-              });
-
-              $('#search_employee').on("click", function(e) {
-                $.ajax({
-                    type : "GET",
-                    data: {
-                        name: $('#name').val(),
-                    },
-                    contentType : "application/json; charset=utf-8",
-                    url : "/admin/company/teams/"+teamId+"/search/employees",
-                    dateType : 'json',
-                    cache: false,
-                    success: function (response, status) {
-                        $("#team_members").html(response);
-                        $("div .page-content").css({"height": "100%"});
-                        $('#add_employee').on("click", function(e) {
-                          $.ajax({
-                              type : "POST",
-                              data: JSON.stringify({'employeeCode': $(this).data("employee-id")}),
-                              contentType : "application/json; charset=utf-8",
-                              url : "/admin/company/teams/"+teamId+"/members/add/",
-                              dateType : 'json',
-                              cache: false,
-                              success: function (response, status) {
-                                $.gotoPath(response.replace("{id}",teamId));
-                              }
-                          });
-                        });
-                        return false;
-                    }
-                });
-              });
-          });
-      </script>
-  </th:block>
-</body>
-</html>
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

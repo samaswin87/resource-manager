@@ -22,13 +22,21 @@ public class EmployeeService implements IEmployeeService {
 	private HttpSession httpSession;
 	
 	@Override
-	public List<EmployeeDTO> serach(String name, Integer teamId) {
-		return repo.serach(name, teamId);
+	public List<EmployeeDTO> serachMember(String name, Integer teamId) {
+		Company currentCompany = (Company) httpSession.getAttribute("currentCompany");
+		return repo.serachMember(name, teamId, currentCompany);
 	}
 	
 	@Override
 	public List<EmployeeDTO> serach(Integer teamId) {
-		return repo.serach(teamId);
+		Company currentCompany = (Company) httpSession.getAttribute("currentCompany");
+		return repo.serach(teamId, currentCompany);
+	}
+	
+	@Override
+	public List<EmployeeDTO> serachLeader(String name, Integer teamId) {
+		Company currentCompany = (Company) httpSession.getAttribute("currentCompany");
+		return repo.serachLeader(name, teamId, currentCompany);
 	}
 
 	@Override

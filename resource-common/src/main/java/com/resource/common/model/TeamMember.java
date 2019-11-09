@@ -15,6 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -55,10 +57,13 @@ public class TeamMember extends Auditable<String> implements Serializable {
 	@Column(name="is_primary")
 	private Boolean isPrimary;
 
+	@NotNull(message="Start date must not be empty")
 	@Temporal(TemporalType.DATE)
 	@Column(name="start_date", nullable=false)
 	private Date startDate;
 
+	@NotNull(message="Title must not be empty")
+	@NotEmpty(message="Title must not be empty")
 	@Column(length=120)
 	private String title;
 

@@ -3060,8 +3060,8 @@ label.valid {
     -moz-border-radius: 5px 5px 0px 0px;
     -webkit-border-radius: 5px 5px 0px 0px;
     border-radius: 5px 5px 0px 0px;
-    background: #046f60;
-    border-color: #046f60;
+    background: #1b446c;
+    border-color: #1b446c;
 }
 
 .modal-header .close {
@@ -3071,6 +3071,7 @@ label.valid {
 
 .modal-title {
     line-height: 30px;
+    color: #ffffff;
 }
 
 .modal-body {
@@ -8858,6 +8859,12 @@ label.caption {
     font-size: 15px;
 }
 
+.fa.model-close {
+    background-color: #337ab7;
+    color: white;
+    border-radius: 18px;
+}
+
 .model-alert {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px;
@@ -8915,6 +8922,11 @@ select.time-diff{
     border-color: #337ab7;
     color: #ffffff;
     border-radius: 4px;
+}
+
+.secondary {
+    background-color: #8ab5da;
+    border-color: #8ab5da;
 }
 
 .team-profile {
@@ -8997,4 +9009,41 @@ img.masked {
 .col-md-6.list {
     padding-top: 10px;
     padding-bottom: 20px;
+}
+
+/*TIME SHEET*/
+.bordered {
+    border: 1px solid #cacacc;
+}
+.table td.text-bordered {
+    border: 1px solid #cacacc;
+}
+.table td.bordered {
+    border: 1px solid #cacacc;
+}
+.table td.time-entry {
+    width: 50px;
+    padding: 0px 0px 0px 0px;
+    border: 1px solid #cacacc;
+}
+.table td.notes {
+    width: 45%;
+    padding: 0px 0px 0px 0px;
+    border: 1px solid #cacacc;
+}
+input.time {
+    width: 70px;
+    height: 33px;
+    padding: 0px 0px 0px 0px;
+}
+input.notes {
+    width: 100%;
+    height: 33px;
+    padding: 0px 0px 0px 0px;
+}
+
+/*TIME SHEET*/
+
+.settings {
+    display: inline;
 }

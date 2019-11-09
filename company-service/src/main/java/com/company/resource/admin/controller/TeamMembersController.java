@@ -1,10 +1,9 @@
 package com.company.resource.admin.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.company.resource.service.ICompanyTeamMappingService;
 import com.company.resource.service.ICompanyTeamMemberService;
@@ -44,11 +45,19 @@ public class TeamMembersController extends AdminController {
 	
 	@Autowired 
 	private ICompanyTeamMappingService mappingService;
+	
+	@GetMapping(value = "/company/teams/{id}/members")
+	public String viewMembers(ModelMap map, @PathVariable("id") Integer id) {
+		Team team = service.find(id);
+		List<TeamMember> members = memberService.findAllByDate(new Date(), team);
+		map.addAttribute("team", team);
+		map.addAttribute("members", members);
+		return AdminPath.team_members_show.partial();
+	}
 
-	@GetMapping(value = "/company/teams/{id}/members/new")
+	@GetMapping(value = "/company/teams/{id}/members/new", headers = "Accept=application/json")
 	public String add(ModelMap map, @PathVariable("id") Integer id) {
 		Team team = service.find(id);
-		map.addAttribute("teamMembers", new TeamMember());
 		map.addAttribute("team", team);
 		return AdminPath.team_members_new.partial();
 	}
@@ -78,29 +87,44 @@ public class TeamMembersController extends AdminController {
 		return new ResponseEntity<String>(AdminPath.team_members.path(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/company/teams/{id}/search/employees", headers = "Accept=application/json")
-	public String searchList(@RequestParam("name") String name, @PathVariable("id") Integer id, ModelMap map) {
-		Team team = service.find(id);
-		List<EmployeeDTO> employeeDTOs = new ArrayList<>();
-		if (StringUtils.isEmpty(name)) {
-			employeeDTOs = employeeService.serach(id);
-		} else {
-			employeeDTOs = employeeService.serach(name, id);
-		}
-		List<Integer> teamEmployeeIds = team.getTeamMembers().stream().map(m -> m.getEmployee().getId())
-				.collect(Collectors.toList());
-		Iterator<EmployeeDTO> itr = employeeDTOs.iterator();
-		while (itr.hasNext()) {
-			EmployeeDTO employeeDTO = itr.next();
-
-			if (teamEmployeeIds.contains(employeeDTO.getId())) {
-				itr.remove();
-			}
-
-		}
-
-		map.addAttribute("employees", employeeService.serach(id));
-		return AdminPath.employee_search_list.partial();
+	@GetMapping(value = "/company/teams/{id}/members/{memberId}/edit")
+	public String edit(ModelMap map, @PathVariable("id") Integer id, @PathVariable("memberId") Integer memberId) {
+		TeamMember member = memberService.find(memberId);
+		if (member == null)
+			return AdminPath.team_members.redirect();
+		
+		map.addAttribute("member", memberService.find(memberId));
+		map.addAttribute("employee", member.getEmployee());
+		map.addAttribute("team", service.find(id));
+		return AdminPath.team_members_edit.partial();
 	}
-
+	
+	@PostMapping(value = "/company/teams/{id}/members/{memberId}/edit")
+	public String update(ModelMap map, @PathVariable("id") Integer id, @PathVariable("memberId") Integer memberId, @Valid @ModelAttribute("member") TeamMember member, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			TeamMember existingMember = memberService.find(memberId);
+			map.addAttribute("team", service.find(id));
+			map.addAttribute("member", member);
+			map.addAttribute("employee", existingMember.getEmployee());
+			return AdminPath.team_members_edit.partial();
+		}
+		
+		TeamMember existingMember = memberService.find(memberId);
+		existingMember.setStartDate(member.getStartDate());
+		existingMember.setEndDate(member.getEndDate());
+		existingMember.setTitle(member.getTitle());
+		memberService.update(existingMember);
+		
+		return AdminPath.team_members_show.redirect();
+	}
+	
+	@DeleteMapping(value = "/company/teams/{id}/members/{memberId}/delete")
+	public String delete(@PathVariable("id") Integer id, ModelMap map, @PathVariable("memberId") Integer memberId) {
+		TeamMember member = memberService.find(memberId);
+		if (member != null) {
+			memberService.delete(memberId);
+		}
+		return AdminPath.team_members_show.redirect();
+	}
+	
 }

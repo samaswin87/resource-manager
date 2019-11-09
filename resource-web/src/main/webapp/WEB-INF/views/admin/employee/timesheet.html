@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+    <th:block layout:fragment="stylesheet">
+        <link rel="stylesheet" type="text/css" id="theme" th:href="@{/css/fullcalendar/daygrid.css}" />
+        <link rel="stylesheet" type="text/css" id="theme" th:href="@{/css/fullcalendar/fullcalendar.css}" />
+    </th:block>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Timesheet</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Timesheet</h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-no-subtitle">
+                            <div class="widget-big-int"><span class="num-count">20</span></div>
+                            <div class="widget-subtitle">Worked days</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-no-subtitle">
+                            <div class="widget-big-int"><span class="num-count">120</span></div>
+                            <div class="widget-subtitle">Worked hours</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-no-subtitle">
+                            <div class="widget-big-int"><span class="num-count">0</span></div>
+                            <div class="widget-subtitle">OT hours</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-no-subtitle">
+                            <div class="widget-big-int"><span class="num-count">2</span></div>
+                            <div class="widget-subtitle">Leaves</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Notes</th>
+                                    <th>Break</th>
+                                    <th>Work</th>
+                                    <th>OT</th>
+                                    <th>Leave</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-bordered" colspan="8">Week1</td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">1(Mon)</td>
+                                    <td class="time-entry">
+                                        <!-- Note: https://jsfiddle.net/J7nDz/1035/ -->
+                                        <input type="text" name="start" class="time" data-container="body" data-toggle="popover" data-placement="top" data-content="Need to add tool box" data-original-title="" title="">
+                                    </td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">2(Tue)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">3(Wed)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">4(Thu)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">5(Fri)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sat)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sun)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bordered" colspan="8">Week2</td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">1(Mon)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">2(Tue)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">3(Wed)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">4(Thu)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">5(Fri)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sat)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sun)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bordered" colspan="8">Week3</td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">1(Mon)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">2(Tue)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">3(Wed)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">4(Thu)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">5(Fri)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sat)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sun)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bordered" colspan="8">Week4</td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">1(Mon)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">2(Tue)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">3(Wed)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">4(Thu)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">5(Fri)</td>
+                                    <td class="time-entry"><input type="text" name="start" class="time"></td>
+                                    <td class="time-entry"><input type="text" name="end" class="time"></td>
+                                    <td class="notes"><input type="text" name="end" class="notes"></td>
+                                    <td class="time-entry"><input type="text" name="break" class="time"></td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered">0</td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sat)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                                <tr class="bordered">
+                                    <td class="text-bordered">6(Sun)</td>
+                                    <td colspan="2">Weekly Holiday</td>
+                                    <td colspan="4"><a href="#">Enter holiday work times</a></td>
+                                    <td class="bordered"><a href="#">Request</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+</html>

@@ -27,4 +27,19 @@ public class CompanyTeamMemberService extends CompanyBaseService implements ICom
 		return repo.save(member);
 	}
 
+	@Override
+	public TeamMember find(Integer id) {
+		return repo.findById(id).orElse(null);
+	}
+
+	@Override
+	public void update(TeamMember member) {
+		repo.save(member);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		repo.deleteById(id);
+	}
+
 }

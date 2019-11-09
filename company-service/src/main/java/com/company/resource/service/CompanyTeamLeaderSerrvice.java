@@ -21,4 +21,24 @@ public class CompanyTeamLeaderSerrvice implements ICompanyTeamLeaderService {
 		return repo.findAll(date, team);
 	}
 
+	@Override
+	public void add(TeamLeader leader) {
+		repo.save(leader);
+	}
+
+	@Override
+	public TeamLeader find(Integer leaderId) {
+		return repo.findById(leaderId).orElse(null);
+	}
+
+	@Override
+	public void update(TeamLeader leader) {
+		repo.save(leader);
+	}
+
+	@Override
+	public void delete(Integer leaderId) {
+		repo.deleteById(leaderId);
+	}
+
 }

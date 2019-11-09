@@ -22,7 +22,7 @@
             <div class="panel">
                 <div class="panel-body team-members">
                     <div class="panel-title">Team leaders</div>
-                    <a th:href="@{${#admin.team_members_show.path()}(id=${team.getId()})}" class="btn blue-button pull-right"><span class="fa fa-users"></span>Add / Modify</a>
+                    <a th:href="@{${#admin.team_leaders_show.path()}(id=${team.getId()})}" class="btn blue-button pull-right"><span class="fa fa-users"></span>Add / Modify</a>
                 </div>
                 <div class="panel-body" th:if="${leaders.empty}">
                     <strong>You have not added any leaders / approvers.</strong>

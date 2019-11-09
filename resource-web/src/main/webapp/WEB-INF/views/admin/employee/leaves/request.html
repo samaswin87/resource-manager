@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{/fragments/layout}">
+<!-- META SECTION -->
+<title>Employees</title>
+
+<head>
+    <th:block layout:fragment="stylesheet">
+        <link rel="stylesheet" type="text/css" id="theme" th:href="@{/css/fullcalendar/daygrid.css}" />
+        <link rel="stylesheet" type="text/css" id="theme" th:href="@{/css/fullcalendar/fullcalendar.css}" />
+    </th:block>
+</head>
+
+<body>
+    <!-- PAGE CONTENT -->
+    <div class="page-content" layout:fragment="content">
+        <div th:replace="/fragments/navigation :: navigation"></div>
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+            <li><a href="#">Employees</a></li>
+            <li class="active">Leaves</li>
+        </ul>
+        <!-- END BREADCRUMB -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Leave Request</h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- PAGE CONTENT WRAPPER -->
+        <div class="page-content-wrap">
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:include="profile/employee"></th:block>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="alert_holder"></div>
+                    <div class="calendar">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div id="piechart"></div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+</body>
+<th:block layout:fragment="message_box">
+    <!-- START MODALS -->
+    <div class="modal fade" id="add_shift" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog custom-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Shift</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span class="fa fa-times-circle" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form id="shift_form" method="post">
+                            <input type="hidden" name="_method" value="put">
+                            <table class="panel-view">
+                                <tbody>
+                                    <tr>
+                                        <td><label class="control-label">Style name</label></td>
+                                        <td><input type="name" name="name"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="add" class="btn blue-button" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- EOF MODALS -->
+</th:block>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/plugins/fullcalendar/fullCalendar.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/fullcalendar/daygrid.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/fullcalendar/integration.js}"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['interaction', 'dayGrid'],
+            header: {
+                left: 'prev',
+                center: 'title',
+                right: 'next'
+            },
+            defaultDate: '2019-08-12',
+            navLinks: true, // can click day/week names to navigate views
+            selectable: true,
+            selectMirror: true,
+            select: function(arg) {
+                $('#add_shift').modal('show');
+                // var title = prompt('Event Title:');
+                // if (title) {
+                //     calendar.addEvent({
+                //         title: title,
+                //         start: arg.start,
+                //         end: arg.end,
+                //         allDay: arg.allDay
+                //     })
+                // }
+                calendar.unselect()
+            },
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [{
+                    title: 'All Day Event',
+                    start: '2019-08-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2019-08-07',
+                    end: '2019-08-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2019-08-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2019-08-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2019-08-11',
+                    end: '2019-08-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2019-08-12T10:30:00',
+                    end: '2019-08-12T12:30:00'
+                },
+            ]
+        });
+
+        calendar.render();
+
+        // Load google charts
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Draw the chart and set the chart values
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['C', 10],
+          ['S', 6],
+          ['PL', 15],
+          ['PLC', 15],
+          ['OHP', 9],
+          ['WFH', 20],
+          ['D-Day', 20],
+          ['I-Day', 20]
+        ]);
+
+          // Optional; add a title and set the width and height of the chart
+          var options = {
+            'title':'My leave balance',
+            'width':500,
+            'height':500,
+            'pieHole': 0.4,
+            'backgroundColor': '#f1f0ed',
+            };
+
+          // Display the chart inside the <div> element with id="piechart"
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+
+        $("div .page-content").css("height", "130vh");
+    });
+    </script>
+</th:block>
+
+</html>

@@ -24,6 +24,9 @@ public enum AdminPath {
 	
 	employee_employment_show("/admin/employee/{id}/employment/show"),
 	employee_employment_edit("/admin/employee/{id}/employment/{relationshipId}/edit"),
+	
+	employee_leave_request("/admin/employee/{id}/leaves/request"),
+	employee_timesheet("/admin/employee/{id}/timesheet"),
 
 	company_list("/admin/companies"), 
 	company_add("/admin/company/new"),
@@ -41,11 +44,17 @@ public enum AdminPath {
 	
 	team_list("/admin/company/teams"),
 	team_members("/admin/company/teams/{id}/members"),
+	team_leaders("/admin/company/teams/{id}/leaders"),
 	team_edit("/admin/company/teams/{id}/edit"),
 	team_add("/admin/company/teams/new"),
 	team_members_add("/admin/company/teams/{id}/members/add"),
 	team_members_show("/admin/company/teams/{id}/members/show"),
 	team_members_new("/admin/company/teams/{id}/members/new"),
+	team_members_edit("/admin/company/teams/{id}/members/{memberId}/edit"),
+	team_members_delete("/admin/company/teams/{id}/members/{memberId}/delete"),
+	team_leaders_show("/admin/company/teams/{id}/leaders/show"),
+	team_leaders_edit("/admin/company/teams/{id}/leaders/{leaderId}/edit"),
+	team_leaders_delete("/admin/company/teams/{id}/leaders/{leaderId}/delete"),
 	team_leaders_new("/admin/company/teams/{id}/leaders/new");
 	
 	

@@ -1,10 +1,30 @@
 <li class="xn-openable"  th:if="${employee_settings}" th:classappend="${employee_settings}">
     <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Settings</span></a>
     <ul class="animated zoomIn top-menu">
-        <li th:class="${employment_selected}"><a th:href="@{${#admin.employee_employment_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-cog"></span>Employment settings</a></li>
+        <li th:class="'xn-openable '+${employment_selected}">
+            <a th:href="@{${#admin.employee_employment_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-cog"></span>Employment settings</a>
+            <ul>
+                <li><a href="#"><span class="fa fa-clock-o"></span>Work time settings</a></li>
+                <li><a href="#"><span class="fa fa-calendar"></span>Timesheet settings</a></li>
+                <li><a href="#"><span class="fa fa-sitemap"></span>Team and approvals</a></li>
+                <li><a href="#"><span class="fa fa-thumb-tack"></span>Location</a></li>
+                <li><a href="#"><span class="fa fa-suitcase"></span>Experience</a></li>
+            </ul>
+        </li>
         <li><a href="#"><span class="fa fa-clock-o"></span>Timesheets</a></li>
         <li><a href="#"><span class="fa fa-calendar-o"></span>Holidays / Leaves</a></li>
-        <li><a href="#"><span class="fa fa-money"></span>Payroll</a></li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-money"></span>Payroll</a>
+            <ul>
+                <li><a href="#"><span class="fa fa-inr"></span>Salary</a></li>
+                <li><a href="#"><span class="fa fa-money"></span>Allowance / Deduction</a></li>
+                <li><a href="#"><span class="fa fa-btc"></span>Bank accounts</a></li>
+                <li><a href="#"><span class="fa fa-gear"></span>Payroll setting</a></li>
+                <li><a href="#"><span class="fa fa-file-text-o"></span>Insurances</a></li>
+                <li><a href="#"><span class="fa fa-suitcase"></span>Cost centers</a></li>
+                <li><a href="#"><span class="fa fa-gear"></span>Income tax settings</a></li>
+            </ul>
+        </li>
     </ul>
 </li>
 <li class="xn-openable" th:if="${personal_settings}" th:classappend="${personal_settings}">
@@ -14,5 +34,15 @@
         <li th:class="${address_selected}"><a th:href="@{${#admin.employee_address_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-address-book"></span>Address</a></li>
         <li th:class="${dependent_selected}"><a th:href="@{${#admin.employee_dependent_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-user-circle"></span>Family members</a></li>
         <li th:class="${contact_selected}"><a th:href="@{${#admin.employee_contact_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-id-card"></span>Contacts</a></li>
+        <li th:class="${visa_selected}"><a th:href="@{${#admin.employee_personal_show.path()}(id=${employee.getEmployeeCode()})}"><span class="glyphicon glyphicon-plane"></span>Visa</a></li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-gears"></span> Other settings</a>
+            <ul>
+                <li><a href="#"><span class="fa fa-book"></span>Education</a></li>
+                <li th:class="${language_selected}"><a th:href="@{${#admin.employee_personal_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-envelope"></span>Email / Language</a></li>
+                <li th:class="${deactivate_selected}"><a th:href="@{${#admin.employee_personal_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-eye-slash"></span>Deactivate / Delete</a></li>
+                <li th:class="${id_card_selected}"><a th:href="@{${#admin.employee_personal_show.path()}(id=${employee.getEmployeeCode()})}"><span class="fa fa-credit-card"></span>ID card</a></li>
+            </ul>
+        </li>
     </ul>
 </li>

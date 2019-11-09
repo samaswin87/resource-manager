@@ -7,10 +7,12 @@ import com.resource.common.model.Employee;
 
 public interface IEmployeeService {
 
-	List<EmployeeDTO> serach(String name, Integer teamId);
+	List<EmployeeDTO> serachMember(String name, Integer teamId);
 
 	List<EmployeeDTO> serach(Integer teamId);
 	
 	Employee findByCode(String code);
+
+	List<EmployeeDTO> serachLeader(String name, Integer id);
 
 }

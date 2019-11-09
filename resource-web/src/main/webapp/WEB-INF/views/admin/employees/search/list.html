@@ -3,10 +3,10 @@
         <div class="employee-box">
             <span class="user_icon small"><img th:alt="${employee.getName()}" class="masked" src="/assets/images/users/no-image.jpg"></span>
             <div class="actions">
-                <a href="#" id="add_employee" th:data-employee-id="${employee.getEmployeeCode()}"> <span class="fa fa-plus-circle fa-3x"></span></a>
+                <a href="#" class="add_employee" th:data-employee-id="${employee.getEmployeeCode()}"> <span class="fa fa-plus-circle fa-3x"></span></a>
             </div>
             <div class="user_details">
-                <div class="name" title="0001" th:text="${employee.getName()}"></div>
+                <div class="name" th:title="${employee.getEmployeeCode()}" th:text="${employee.getName()}"></div>
             </div>
         </div>
     </div>
